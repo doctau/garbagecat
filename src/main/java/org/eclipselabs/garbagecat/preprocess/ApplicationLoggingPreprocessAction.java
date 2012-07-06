@@ -12,6 +12,8 @@
  ******************************************************************************/
 package org.eclipselabs.garbagecat.preprocess;
 
+import java.util.regex.Pattern;
+
 import org.eclipselabs.garbagecat.preprocess.jdk.PreprocessAction;
 import org.eclipselabs.garbagecat.util.jdk.JdkUtil;
 
@@ -84,6 +86,12 @@ public class ApplicationLoggingPreprocessAction implements PreprocessAction {
             // stack trace ellipsis
             "\\t\\.\\.\\. \\d{1,3} more$" };
 
+    private static final Pattern PATTERN[] = new Pattern[REGEX.length];
+    static {
+        for (int i = 0; i < REGEX.length; i++)
+            PATTERN[i] = Pattern.compile(REGEX[i]);
+    }
+
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
@@ -114,7 +122,7 @@ public class ApplicationLoggingPreprocessAction implements PreprocessAction {
     public static final boolean match(String logLine) {
         boolean isMatch = false;
         for (int i = 0; i < REGEX.length; i++) {
-            if (logLine.matches(REGEX[i])) {
+            if (PATTERN[i].matcher(logLine).matches()) {
                 isMatch = true;
                 break;
             }

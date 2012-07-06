@@ -79,14 +79,14 @@ public class VerboseGcYoungEvent implements BlockingEvent, YoungCollection, Comb
      */
     private static final String REGEX = "^" + JdkRegEx.TIMESTAMP + ": \\[GC " + JdkRegEx.SIZE + "->" + JdkRegEx.SIZE
             + "\\(" + JdkRegEx.SIZE + "\\), " + JdkRegEx.DURATION + "\\]?[ ]*$";
-    private static Pattern pattern = Pattern.compile(VerboseGcYoungEvent.REGEX);
+    private static final Pattern PATTERN = Pattern.compile(VerboseGcYoungEvent.REGEX);
 
     /**
      * Create serial old detail logging event from log entry.
      */
     public VerboseGcYoungEvent(String logEntry) {
         this.logEntry = logEntry;
-        Matcher matcher = pattern.matcher(logEntry);
+        Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(1)).longValue();
             combinedBegin = Integer.parseInt(matcher.group(2));
@@ -145,6 +145,6 @@ public class VerboseGcYoungEvent implements BlockingEvent, YoungCollection, Comb
      * @return true if the log line matches the event pattern, false otherwise.
      */
     public static final boolean match(String logLine) {
-        return pattern.matcher(logLine).matches();
+        return PATTERN.matcher(logLine).matches();
     }
 }

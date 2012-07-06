@@ -41,7 +41,7 @@ public class JdkMath {
      */
     public static BigDecimal convertSecsToMillis(String secs) {
         // BigDecimal does not accept decimal commas, only decimal periods
-        BigDecimal duration = new BigDecimal(secs.replace(",", "."));
+        BigDecimal duration = new BigDecimal(secs.replace(',', '.'));
         duration = duration.movePointRight(3);
         // Round down to avoid TimeWarpExceptions when events are spaced close together
         duration = duration.setScale(0, RoundingMode.DOWN);
@@ -79,7 +79,7 @@ public class JdkMath {
         BigDecimal duration = new BigDecimal("0");
         for (int i = 0; i < durations.length; i++) {
             // BigDecimal does not accept decimal commas, only decimal periods
-            duration = duration.add(new BigDecimal(durations[i].replace(",", ".")));
+            duration = duration.add(new BigDecimal(durations[i].replace(',', '.')));
         }
         return convertSecsToMillis(duration.toPlainString()).intValue();
     }

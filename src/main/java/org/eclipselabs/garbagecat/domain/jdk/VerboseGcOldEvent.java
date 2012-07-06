@@ -79,14 +79,14 @@ public class VerboseGcOldEvent implements BlockingEvent, OldCollection, Combined
      */
     private static final String REGEX = "^" + JdkRegEx.TIMESTAMP + ": \\[Full GC " + JdkRegEx.SIZE + "->"
             + JdkRegEx.SIZE + "\\(" + JdkRegEx.SIZE + "\\), " + JdkRegEx.DURATION + "\\]?[ ]*$";
-    private static Pattern pattern = Pattern.compile(VerboseGcOldEvent.REGEX);
+    private static final Pattern PATTERN = Pattern.compile(VerboseGcOldEvent.REGEX);
 
     /**
      * Create serial old detail logging event from log entry.
      */
     public VerboseGcOldEvent(String logEntry) {
         this.logEntry = logEntry;
-        Matcher matcher = pattern.matcher(logEntry);
+        Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(1)).longValue();
             combinedBegin = Integer.parseInt(matcher.group(2));
@@ -145,6 +145,6 @@ public class VerboseGcOldEvent implements BlockingEvent, OldCollection, Combined
      * @return true if the log line matches the event pattern, false otherwise.
      */
     public static final boolean match(String logLine) {
-        return pattern.matcher(logLine).matches();
+        return PATTERN.matcher(logLine).matches();
     }
 }// VerboseGcOldEvent

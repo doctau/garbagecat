@@ -55,7 +55,7 @@ public class ApplicationConcurrentTimeEvent implements LogEvent {
     /**
      * RegEx pattern.
      */
-    private static Pattern pattern = Pattern.compile(ApplicationConcurrentTimeEvent.REGEX);
+    private static Pattern PATTERN = Pattern.compile(ApplicationConcurrentTimeEvent.REGEX);
 
     /**
      * The log entry for the event. Can be used for debugging purposes.
@@ -89,7 +89,7 @@ public class ApplicationConcurrentTimeEvent implements LogEvent {
      * @return true if the log line matches the event pattern, false otherwise.
      */
     public static final boolean match(String logLine) {
-        return pattern.matcher(logLine).matches();
+        return PATTERN.matcher(logLine).matches();
     }
 
 }

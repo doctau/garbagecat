@@ -56,6 +56,7 @@ import org.eclipselabs.garbagecat.util.jdk.JdkUtil;
  * 
  */
 public class GcManager {
+    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     /**
      * The JVM data access object.
@@ -234,8 +235,7 @@ public class GcManager {
                     preprocessedLogLine = action.getLogEntry();
                 }
             } else {
-
-                preprocessedLogLine = currentLogLine + System.getProperty("line.separator");
+                preprocessedLogLine = currentLogLine + LINE_SEPARATOR;
             }
         }
         return preprocessedLogLine;

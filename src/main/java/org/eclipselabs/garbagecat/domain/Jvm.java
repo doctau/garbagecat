@@ -57,6 +57,9 @@ public class Jvm {
         return options;
     }
 
+    private static final String TSS_regex1 = "-Xss\\d{1,4}(k|K|m|M)";
+    private static final String TSS_regex2 = "-XX:ThreadStackSize=\\d{1,4}(k|K|m|M)?";
+    private static final Pattern TSS_OPTION_REGEX = Pattern.compile("((" + TSS_regex1 + ")|(" + TSS_regex2 + "))");
     /**
      * Thread stack size. Specified with either the <code>-Xss</code> or <code>-XX:ThreadStackSize</code> options. For
      * example:
@@ -76,17 +79,15 @@ public class Jvm {
     public String getThreadStackSizeOption() {
         String option = null;
         if (options != null) {
-            String regex1 = "-Xss\\d{1,4}(k|K|m|M)";
-            String regex2 = "-XX:ThreadStackSize=\\d{1,4}(k|K|m|M)?";
-            String regex = "((" + regex1 + ")|(" + regex2 + "))";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(options);
+            Matcher matcher = TSS_OPTION_REGEX.matcher(options);
             if (matcher.find()) {
                 option = matcher.group(1);
             }
         }
         return option;
     }
+    
+    private static final Pattern MIN_HEAP_REGEX = Pattern.compile("(-Xms\\d{1,5}(m|M|g|G))");
 
     /**
      * Minimum heap space. Specified with the <code>-Xms</code> option. For example:
@@ -100,9 +101,7 @@ public class Jvm {
     public String getMinHeapOption() {
         String option = null;
         if (options != null) {
-            String regex = "(-Xms\\d{1,5}(m|M|g|G))";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(options);
+            Matcher matcher = MIN_HEAP_REGEX.matcher(options);
             if (matcher.find()) {
                 option = matcher.group(1);
             }
@@ -117,6 +116,8 @@ public class Jvm {
         return JdkUtil.getOptionValue(getMinHeapOption());
     }
 
+    private static final Pattern MAX_HEAP_REGEX = Pattern.compile("(-Xmx\\d{1,5}(m|M|g|G))");
+
     /**
      * Maximum heap space. Specified with the <code>-Xmx</code> option. For example:
      * 
@@ -129,9 +130,7 @@ public class Jvm {
     public String getMaxHeapOption() {
         String option = null;
         if (options != null) {
-            String regex = "(-Xmx\\d{1,5}(m|M|g|G))";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(options);
+            Matcher matcher = MAX_HEAP_REGEX.matcher(options);
             if (matcher.find()) {
                 option = matcher.group(1);
             }
@@ -156,6 +155,7 @@ public class Jvm {
                 && getMaxHeapValue().toUpperCase().equals(getMinHeapValue().toUpperCase());
     }
 
+    private static final Pattern MIN_PERM_REGEX = Pattern.compile("(-XX:PermSize=\\d{1,5}(m|M|g|G))");
     /**
      * Minimum permanent generation space. Specified with the <code>-XX:PermSize</code> option. For example:
      * 
@@ -168,9 +168,7 @@ public class Jvm {
     public String getMinPermOption() {
         String option = null;
         if (options != null) {
-            String regex = "(-XX:PermSize=\\d{1,5}(m|M|g|G))";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(options);
+            Matcher matcher = MIN_PERM_REGEX.matcher(options);
             if (matcher.find()) {
                 option = matcher.group(1);
             }
@@ -185,6 +183,8 @@ public class Jvm {
         return JdkUtil.getOptionValue(getMinPermOption());
     }
 
+    private static final Pattern MAX_PERM_REGEX = Pattern.compile("(-XX:MaxPermSize=\\d{1,5}(m|M|g|G))");
+
     /**
      * Maximum permanent generation space. Specified with the <code>-XX:MaxPermSize</code> option. For example:
      * 
@@ -197,9 +197,7 @@ public class Jvm {
     public String getMaxPermOption() {
         String option = null;
         if (options != null) {
-            String regex = "(-XX:MaxPermSize=\\d{1,5}(m|M|g|G))";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(options);
+            Matcher matcher = MAX_PERM_REGEX.matcher(options);
             if (matcher.find()) {
                 option = matcher.group(1);
             }

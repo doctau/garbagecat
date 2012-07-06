@@ -61,7 +61,7 @@ public class G1FullGCEvent implements BlockingEvent, CombinedData {
             + ": \\[Full GC \\((.+?)\\) "
             + JdkRegEx.SIZE_JDK7 + "->" + JdkRegEx.SIZE_JDK7 + "\\(" + JdkRegEx.SIZE_JDK7 + "\\), "
             + JdkRegEx.DURATION + "\\]";
-    private static final Pattern pattern = Pattern.compile(REGEX);
+    private static final Pattern PATTERN = Pattern.compile(REGEX);
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
@@ -102,7 +102,7 @@ public class G1FullGCEvent implements BlockingEvent, CombinedData {
      */
     public G1FullGCEvent(String logEntry) {
         this.logEntry = logEntry;
-        Matcher matcher = pattern.matcher(logEntry);
+        Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(12)).longValue();
             trigger = matcher.group(13);
@@ -166,6 +166,6 @@ public class G1FullGCEvent implements BlockingEvent, CombinedData {
      * @return true if the log line matches the event pattern, false otherwise.
      */
     public static final boolean match(String logLine) {
-        return logLine.matches(REGEX);
+        return PATTERN.matcher(logLine).matches();
     }
 }

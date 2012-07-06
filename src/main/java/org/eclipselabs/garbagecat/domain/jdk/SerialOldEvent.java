@@ -128,14 +128,14 @@ public class SerialOldEvent implements BlockingEvent, YoungCollection, OldCollec
             + "\\), " + JdkRegEx.DURATION + "\\] " + JdkRegEx.SIZE + "->" + JdkRegEx.SIZE + "\\(" + JdkRegEx.SIZE
             + "\\), \\[Perm : " + JdkRegEx.SIZE + "->" + JdkRegEx.SIZE + "\\(" + JdkRegEx.SIZE + "\\)\\], "
             + JdkRegEx.DURATION + "\\]" + JdkRegEx.TIMES_BLOCK + "?[ ]*$";
-    private static Pattern pattern = Pattern.compile(SerialOldEvent.REGEX);
+    private static final Pattern PATTERN = Pattern.compile(SerialOldEvent.REGEX);
 
     /**
      * Create serial old detail logging event from log entry.
      */
     public SerialOldEvent(String logEntry) {
         this.logEntry = logEntry;
-        Matcher matcher = pattern.matcher(logEntry);
+        Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(1)).longValue();
             old = Integer.parseInt(matcher.group(4));
@@ -228,6 +228,6 @@ public class SerialOldEvent implements BlockingEvent, YoungCollection, OldCollec
      * @return true if the log line matches the event pattern, false otherwise.
      */
     public static final boolean match(String logLine) {
-        return pattern.matcher(logLine).matches();
+        return PATTERN.matcher(logLine).matches();
     }
 }

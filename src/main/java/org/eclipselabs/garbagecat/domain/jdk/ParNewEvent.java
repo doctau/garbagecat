@@ -72,7 +72,7 @@ public class ParNewEvent implements BlockingEvent, YoungCollection, YoungData, O
             + ": )?\\[ParNew: " + JdkRegEx.SIZE + "->" + JdkRegEx.SIZE + "\\(" + JdkRegEx.SIZE + "\\), "
             + JdkRegEx.DURATION + "\\] " + JdkRegEx.SIZE + "->" + JdkRegEx.SIZE + "\\(" + JdkRegEx.SIZE + "\\)"
             + JdkRegEx.ICMS_DC_BLOCK + "?, " + JdkRegEx.DURATION + "\\]" + JdkRegEx.TIMES_BLOCK + "?[ ]*$";
-    private static final Pattern pattern = Pattern.compile(ParNewEvent.REGEX);
+    private static final Pattern PATTERN = Pattern.compile(ParNewEvent.REGEX);
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
@@ -123,7 +123,7 @@ public class ParNewEvent implements BlockingEvent, YoungCollection, YoungData, O
      */
     public ParNewEvent(String logEntry) {
         this.logEntry = logEntry;
-        Matcher matcher = pattern.matcher(logEntry);
+        Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(1)).longValue();
             young = Integer.parseInt(matcher.group(5));
@@ -200,6 +200,6 @@ public class ParNewEvent implements BlockingEvent, YoungCollection, YoungData, O
      * @return true if the log line matches the event pattern, false otherwise.
      */
     public static final boolean match(String logLine) {
-        return pattern.matcher(logLine).matches();
+        return PATTERN.matcher(logLine).matches();
     }
 }

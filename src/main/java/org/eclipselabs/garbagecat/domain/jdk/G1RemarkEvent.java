@@ -57,7 +57,7 @@ public class G1RemarkEvent implements BlockingEvent {
      */
     private static final String REGEX = "^(" + JdkRegEx.DATESTAMP + ": )?" + JdkRegEx.TIMESTAMP + ": \\[GC remark, "
             + JdkRegEx.DURATION + "\\]";
-    private static final Pattern pattern = Pattern.compile(REGEX);
+    private static final Pattern PATTERN = Pattern.compile(REGEX);
 
 
     /**
@@ -81,7 +81,7 @@ public class G1RemarkEvent implements BlockingEvent {
      */
     public G1RemarkEvent(String logEntry) {
         this.logEntry = logEntry;
-        Matcher matcher = pattern.matcher(logEntry);
+        Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(12)).longValue();
             duration = JdkMath.convertSecsToMillis(matcher.group(13)).intValue();
@@ -124,6 +124,6 @@ public class G1RemarkEvent implements BlockingEvent {
      * @return true if the log line matches the event pattern, false otherwise.
      */
     public static final boolean match(String logLine) {
-        return logLine.matches(REGEX);
+        return PATTERN.matcher(logLine).matches();
     }
 }

@@ -148,6 +148,8 @@ public class Main {
         formatter.printHelp("garbagecat [OPTION]... [FILE]", options);
     }
 
+    private static final Pattern THRESHOLD_OPTION_REGEX = Pattern.compile("^\\d{1,3}$");
+
     /**
      * Validate command line options.
      * 
@@ -173,20 +175,17 @@ public class Main {
         }
         // threshold
         if (cmd.hasOption("threshold")) {
-            String thresholdRegEx = "^\\d{1,3}$";
             String thresholdOptionValue = cmd.getOptionValue('t');
-            Pattern pattern = Pattern.compile(thresholdRegEx);
-            Matcher matcher = pattern.matcher(thresholdOptionValue);
+            Matcher matcher = THRESHOLD_OPTION_REGEX.matcher(thresholdOptionValue);
             if (!matcher.find()) {
                 throw new IllegalArgumentException("'" + thresholdOptionValue + "' is not a valid threshold: "
-                        + thresholdRegEx);
+                        + THRESHOLD_OPTION_REGEX);
             }
         }
         // startdatetime
         if (cmd.hasOption("startdatetime")) {
             String startdatetimeOptionValue = cmd.getOptionValue('s');
-            Pattern pattern = Pattern.compile(GcUtil.START_DATE_TIME_REGEX);
-            Matcher matcher = pattern.matcher(startdatetimeOptionValue);
+            Matcher matcher = GcUtil.START_DATE_TIME_REGEX.matcher(startdatetimeOptionValue);
             if (!matcher.find()) {
                 throw new IllegalArgumentException("'" + startdatetimeOptionValue + "' is not a valid startdatetime: "
                         + GcUtil.START_DATE_TIME_REGEX);

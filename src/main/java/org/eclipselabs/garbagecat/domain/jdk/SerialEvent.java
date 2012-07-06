@@ -62,7 +62,7 @@ public class SerialEvent implements BlockingEvent, YoungCollection, YoungData, O
             + ": \\[DefNew: " + JdkRegEx.SIZE + "->" + JdkRegEx.SIZE + "\\(" + JdkRegEx.SIZE + "\\), "
             + JdkRegEx.DURATION + "\\] " + JdkRegEx.SIZE + "->" + JdkRegEx.SIZE + "\\(" + JdkRegEx.SIZE + "\\), "
             + JdkRegEx.DURATION + "\\]" + JdkRegEx.TIMES_BLOCK + "?[ ]*$";
-    private static final Pattern pattern = Pattern.compile(SerialEvent.REGEX);
+    private static final Pattern PATTERN = Pattern.compile(SerialEvent.REGEX);
 
     /**
      * The log entry for the event. Can be used for debugging purposes.
@@ -114,7 +114,7 @@ public class SerialEvent implements BlockingEvent, YoungCollection, YoungData, O
      */
     public SerialEvent(String logEntry) {
         this.logEntry = logEntry;
-        Matcher matcher = pattern.matcher(logEntry);
+        Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(1)).longValue();
             young = Integer.parseInt(matcher.group(4));
@@ -199,6 +199,6 @@ public class SerialEvent implements BlockingEvent, YoungCollection, YoungData, O
      * @return true if the log line matches the event pattern, false otherwise.
      */
     public static final boolean match(String logLine) {
-        return pattern.matcher(logLine).matches();
+        return PATTERN.matcher(logLine).matches();
     }
 }

@@ -75,7 +75,13 @@ public class TruncatedEvent implements LogEvent {
             "^" + JdkRegEx.TIMESTAMP + ": \\[GC " + JdkRegEx.TIMESTAMP + ": \\[ParNew" + JdkRegEx.TIMESTAMP
                     + ": \\[CMS-concurrent-abortable-preclean: " + JdkRegEx.DURATION_FRACTION + "\\]"
                     + JdkRegEx.TIMES_BLOCK + "?[ ]*$" };
-    private static Pattern pattern = Pattern.compile("^" + JdkRegEx.TIMESTAMP + ".*$");
+    private static final Pattern PATTERNS[] = new Pattern[REGEX.length];
+    private static final Pattern PATTERN_EXTRACT = Pattern.compile("^" + JdkRegEx.TIMESTAMP + ".*$");
+    
+    static {
+        for (int i = 0; i < REGEX.length; i++)
+            PATTERNS[i] = Pattern.compile(REGEX[i]);
+    }
 
     /**
      * The log entry for the event. Can be used for debugging purposes.
@@ -92,7 +98,7 @@ public class TruncatedEvent implements LogEvent {
      */
     public TruncatedEvent(String logEntry) {
         this.logEntry = logEntry;
-        Matcher matcher = pattern.matcher(logEntry);
+        Matcher matcher = PATTERN_EXTRACT.matcher(logEntry);
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(1)).longValue();
         }
@@ -118,14 +124,12 @@ public class TruncatedEvent implements LogEvent {
      * @return true if the log line matches the event pattern, false otherwise.
      */
     public static final boolean match(String logLine) {
-        boolean isMatch = false;
-        for (int i = 0; i < REGEX.length; i++) {
-            if (logLine.matches(REGEX[i])) {
-                isMatch = true;
-                break;
+        for (int i = 0; i < PATTERNS.length; i++) {
+            if (PATTERNS[i].matcher(logLine).matches()) {
+                return true;
             }
         }
-        return isMatch;
+        return false;
     }
 
 }

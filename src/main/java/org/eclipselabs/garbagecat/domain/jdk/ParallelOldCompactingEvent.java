@@ -141,14 +141,14 @@ public class ParallelOldCompactingEvent implements BlockingEvent, OldCollection,
             + JdkRegEx.SIZE + "->" + JdkRegEx.SIZE + "\\(" + JdkRegEx.SIZE + "\\)\\], " + JdkRegEx.DURATION + "\\]"
             + JdkRegEx.TIMES_BLOCK + "?[ ]*$";
 
-    private static Pattern pattern = Pattern.compile(ParallelOldCompactingEvent.REGEX);
+    private static final Pattern PATTERN = Pattern.compile(ParallelOldCompactingEvent.REGEX);
 
     /**
      * Create parallel old detail logging event from log entry.
      */
     public ParallelOldCompactingEvent(String logEntry) {
         this.logEntry = logEntry;
-        Matcher matcher = pattern.matcher(logEntry);
+        Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(1)).longValue();
             young = Integer.parseInt(matcher.group(3));
@@ -238,6 +238,6 @@ public class ParallelOldCompactingEvent implements BlockingEvent, OldCollection,
      * @return true if the log line matches the event pattern, false otherwise.
      */
     public static final boolean match(String logLine) {
-        return pattern.matcher(logLine).matches();
+        return PATTERN.matcher(logLine).matches();
     }
 }

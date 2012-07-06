@@ -67,7 +67,7 @@ public class CmsRemarkWithClassUnloadingEvent implements BlockingEvent {
             + ": \\[scrub symbol & string tables, " + JdkRegEx.DURATION + "\\] \\[1 CMS-remark: " + JdkRegEx.SIZE
             + "\\(" + JdkRegEx.SIZE + "\\)\\] " + JdkRegEx.SIZE + "\\(" + JdkRegEx.SIZE + "\\), " + JdkRegEx.DURATION
             + "\\]" + JdkRegEx.TIMES_BLOCK + "?[ ]*$";
-    private static Pattern pattern = Pattern.compile(CmsRemarkWithClassUnloadingEvent.REGEX);
+    private static final Pattern PATTERN = Pattern.compile(CmsRemarkWithClassUnloadingEvent.REGEX);
 
     /**
      * Create CMS Remark with class unloading logging event from log entry.
@@ -76,7 +76,7 @@ public class CmsRemarkWithClassUnloadingEvent implements BlockingEvent {
      */
     public CmsRemarkWithClassUnloadingEvent(String logEntry) {
         this.logEntry = logEntry;
-        Matcher matcher = pattern.matcher(logEntry);
+        Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(1)).longValue();
             // The last duration is the total duration for the phase.
@@ -121,6 +121,6 @@ public class CmsRemarkWithClassUnloadingEvent implements BlockingEvent {
      * @return true if the log line matches the event pattern, false otherwise.
      */
     public static final boolean match(String logLine) {
-        return pattern.matcher(logLine).matches();
+        return PATTERN.matcher(logLine).matches();
     }
 }

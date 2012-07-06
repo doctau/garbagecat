@@ -41,8 +41,8 @@ public class GcUtil {
      * 2009-09-18 00:00:08,172
      * </pre>
      */
-    public static final String START_DATE_TIME_REGEX = "^(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),"
-            + "(\\d{3})$";
+    public static final Pattern START_DATE_TIME_REGEX = Pattern.compile("^(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2})"
+            + ":(\\d{2}),(\\d{3})$");
 
     /**
      * Make default constructor private so the class cannot be instantiated.
@@ -59,7 +59,7 @@ public class GcUtil {
      * @return true if a valid format, false otherwise.
      */
     public static final boolean isValidStartDateTime(String startDateTime) {
-        return startDateTime.matches(START_DATE_TIME_REGEX);
+        return START_DATE_TIME_REGEX.matcher(startDateTime).matches();
     }
 
     /**
@@ -71,8 +71,7 @@ public class GcUtil {
      */
     public static final Date parseStartDateTime(String startDateTime) {
         Date date = null;
-        Pattern pattern = Pattern.compile(START_DATE_TIME_REGEX);
-        Matcher matcher = pattern.matcher(startDateTime);
+        Matcher matcher = START_DATE_TIME_REGEX.matcher(startDateTime);
         if (matcher.find()) {
             date = getDate(matcher.group(1), matcher.group(2), matcher.group(3), matcher.group(4), matcher.group(5),
                     matcher.group(6), matcher.group(7));
@@ -89,8 +88,7 @@ public class GcUtil {
      */
     public static final Date parseDateStamp(String datestamp) {
         Date date = null;
-        Pattern pattern = Pattern.compile(JdkRegEx.DATESTAMP);
-        Matcher matcher = pattern.matcher(datestamp);
+        Matcher matcher = JdkRegEx.DATESTAMP_REGEX.matcher(datestamp);
         if (matcher.find()) {
             date = getDate(matcher.group(2), matcher.group(3), matcher.group(4), matcher.group(5), matcher.group(6),
                     matcher.group(7), matcher.group(8));

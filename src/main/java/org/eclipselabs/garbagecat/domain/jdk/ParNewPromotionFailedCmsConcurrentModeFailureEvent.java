@@ -74,7 +74,7 @@ public class ParNewPromotionFailedCmsConcurrentModeFailureEvent implements Block
             + "\\), " + JdkRegEx.DURATION + "\\] " + JdkRegEx.SIZE + "->" + JdkRegEx.SIZE + "\\(" + JdkRegEx.SIZE
             + "\\)" + JdkRegEx.ICMS_DC_BLOCK + "?, " + JdkRegEx.DURATION + "\\]" + JdkRegEx.TIMES_BLOCK + "?[ ]*$";
 
-    private static Pattern pattern = Pattern.compile(REGEX);
+    private static final Pattern PATTERN = Pattern.compile(REGEX);
 
     /**
      * The log entry for the event. Can be used for debugging purposes.
@@ -126,7 +126,7 @@ public class ParNewPromotionFailedCmsConcurrentModeFailureEvent implements Block
      */
     public ParNewPromotionFailedCmsConcurrentModeFailureEvent(String logEntry) {
         this.logEntry = logEntry;
-        Matcher matcher = pattern.matcher(logEntry);
+        Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(1)).longValue();
             old = Integer.parseInt(matcher.group(12));
@@ -203,6 +203,6 @@ public class ParNewPromotionFailedCmsConcurrentModeFailureEvent implements Block
      * @return true if the log line matches the event pattern, false otherwise.
      */
     public static final boolean match(String logLine) {
-        return pattern.matcher(logLine).matches();
+        return PATTERN.matcher(logLine).matches();
     }
 }

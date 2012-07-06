@@ -99,6 +99,8 @@ public class JdkUtil {
         PRINT_TENURING_DISTRIBUTION, THREAD_DUMP, UNLOADING_CLASS, G1_PRINT_GC_DETAILS
     };
 
+    private static final Pattern SIZE_OPTION_REGEX = Pattern.compile("^-[a-zA-Z:]+(=)?(\\d{1,6}(k|K|m|M|g|G))$");
+
     /**
      * Make default constructor private so the class cannot be instantiated.
      */
@@ -481,12 +483,11 @@ public class JdkUtil {
     public static final String convertLogEntryTimestampsToDateStamp(String logEntry, Date jvmStartDate) {
         // Add the colon or space after the timestamp format so durations will
         // not get picked up.
-        Pattern pattern = Pattern.compile(JdkRegEx.TIMESTAMP + "(: )");
-        Matcher matcher = pattern.matcher(logEntry);
+        Matcher matcher = JdkRegEx.TIMESTAMP_PLUS_REGEX.matcher(logEntry);
         StringBuffer sb = new StringBuffer();
         while (matcher.find()) {
-            Date date = GcUtil.getDatePlusTimestamp(jvmStartDate, JdkMath.convertSecsToMillis(matcher.group(1))
-                    .longValue());
+            Date date = GcUtil.getDatePlusTimestamp(jvmStartDate,
+                JdkMath.convertSecsToMillis(matcher.group(1)).longValue());
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS");
             // Only update the timestamp, keep the colon or space.
             matcher.appendReplacement(sb, formatter.format(date) + matcher.group(2));
@@ -507,8 +508,7 @@ public class JdkUtil {
     public static final String convertLogEntryDateStampToTimeStamp(String logEntry, Date jvmStartDate) {
         // Add the colon or space after the datestamp format so durations will
         // not get picked up.
-        Pattern pattern = Pattern.compile(JdkRegEx.DATESTAMP + "(: )");
-        Matcher matcher = pattern.matcher(logEntry);
+        Matcher matcher = JdkRegEx.DATESTAMP_PLUS_REGEX.matcher(logEntry);
         StringBuffer sb = new StringBuffer();
         while (matcher.find()) {
 
@@ -532,7 +532,7 @@ public class JdkUtil {
      */
     public static final boolean discardLogLine(String logLine) {
         return ThreadDumpPreprocessAction.match(logLine) || ApplicationLoggingPreprocessAction.match(logLine)
-                || logLine.length() == 0 || logLine.matches(JdkRegEx.BLANK_LINE);
+                || logLine.length() == 0 || JdkRegEx.BLANK_LINE.matcher(logLine).matches();
     }
 
     /**
@@ -584,9 +584,7 @@ public class JdkUtil {
     public static final String getOptionValue(String option) {
         String value = null;
         if (option != null) {
-            String regex = "^-[a-zA-Z:]+(=)?(\\d{1,6}(k|K|m|M|g|G))$";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(option);
+            Matcher matcher = SIZE_OPTION_REGEX.matcher(option);
             if (matcher.find()) {
                 value = matcher.group(2);
             }

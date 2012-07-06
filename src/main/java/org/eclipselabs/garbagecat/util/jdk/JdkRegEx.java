@@ -12,6 +12,8 @@
  ******************************************************************************/
 package org.eclipselabs.garbagecat.util.jdk;
 
+import java.util.regex.Pattern;
+
 /**
  * Regular expression utility methods and constants for OpenJDK and Sun JDK.
  * 
@@ -26,6 +28,7 @@ public class JdkRegEx {
      * For example: 487.020
      */
     public static final String TIMESTAMP = "(\\d{0,12}[\\.\\,]\\d{3})";
+    public static final Pattern TIMESTAMP_PLUS_REGEX = Pattern.compile(TIMESTAMP + "(: )");
 
     /**
      * Datestamp. Absolute date/time the JVM uses with <code>-XX:+PrintGCDateStamps</code>.
@@ -38,6 +41,8 @@ public class JdkRegEx {
      */
     public static final String DATESTAMP = "((\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2}):(\\d{2})\\.(\\d{3})(-|\\+)"
             + "(\\d{4}))";
+    public static final Pattern DATESTAMP_REGEX = Pattern.compile(DATESTAMP);
+    public static final Pattern DATESTAMP_PLUS_REGEX = Pattern.compile(DATESTAMP + "(: )");
 
     /**
      * The size of memory in kilobytes. Sometimes there is a space between the number and the "K" units.
@@ -112,7 +117,7 @@ public class JdkRegEx {
     /**
      * Blank line.
      */
-    public static final String BLANK_LINE = "^\\s+$";
+    public static final Pattern BLANK_LINE = Pattern.compile("^\\s+$");
 
     /**
      * Make default constructor private so the class cannot be instantiated.

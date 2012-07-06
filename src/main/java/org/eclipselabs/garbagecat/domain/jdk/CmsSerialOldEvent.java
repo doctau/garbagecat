@@ -135,14 +135,14 @@ public class CmsSerialOldEvent implements BlockingEvent, OldCollection, PermColl
             + "\\), " + JdkRegEx.DURATION + "\\] " + JdkRegEx.SIZE + "->" + JdkRegEx.SIZE + "\\(" + JdkRegEx.SIZE
             + "\\), \\[CMS Perm : " + JdkRegEx.SIZE + "->" + JdkRegEx.SIZE + "\\(" + JdkRegEx.SIZE + "\\)\\]"
             + JdkRegEx.ICMS_DC_BLOCK + "?, " + JdkRegEx.DURATION + "\\]" + JdkRegEx.TIMES_BLOCK + "?[ ]*$";
-    private static Pattern pattern = Pattern.compile(CmsSerialOldEvent.REGEX);
+    private static final Pattern PATTERN = Pattern.compile(CmsSerialOldEvent.REGEX);
 
     /**
      * Create CMS logging event from log entry.
      */
     public CmsSerialOldEvent(String logEntry) {
         this.logEntry = logEntry;
-        Matcher matcher = pattern.matcher(logEntry);
+        Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(1)).longValue();
             old = Integer.parseInt(matcher.group(4));
@@ -234,6 +234,6 @@ public class CmsSerialOldEvent implements BlockingEvent, OldCollection, PermColl
      * @return true if the log line matches the event pattern, false otherwise.
      */
     public static final boolean match(String logLine) {
-        return pattern.matcher(logLine).matches();
+        return PATTERN.matcher(logLine).matches();
     }
 }

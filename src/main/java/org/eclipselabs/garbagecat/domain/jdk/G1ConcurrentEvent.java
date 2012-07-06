@@ -67,7 +67,7 @@ public class G1ConcurrentEvent implements LogEvent {
      */
     private static final String REGEX = "^(" + JdkRegEx.DATESTAMP + ": )?"
             + JdkRegEx.TIMESTAMP + ": \\[GC concurrent.+$";
-    private static final Pattern pattern = Pattern.compile(REGEX);
+    private static final Pattern PATTERN = Pattern.compile(REGEX);
     
     /**
      * The log entry for the event. Can be used for debugging purposes.
@@ -86,7 +86,7 @@ public class G1ConcurrentEvent implements LogEvent {
     public G1ConcurrentEvent(String logEntry) {
         this.logEntry = logEntry;
 
-        Matcher matcher = pattern.matcher(logEntry);
+        Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(12)).longValue();
         }
@@ -112,7 +112,7 @@ public class G1ConcurrentEvent implements LogEvent {
      * @return true if the log line matches the event pattern, false otherwise.
      */
     public static final boolean match(String logLine) {
-        return logLine.matches(REGEX);
+        return PATTERN.matcher(logLine).matches();
     }
 
 }
