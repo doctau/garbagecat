@@ -60,6 +60,10 @@ public class TruncatedEvent implements LogEvent {
      */
     private static final String[] REGEX = {
             /*
+             * The beginning of a Full GC event
+             */
+            "^" + JdkRegEx.TIMESTAMP + ": \\[Full GC",
+            /*
              * The beginning of a {@link org.eclipselabs.garbagecat.domain.jdk.CmsSerialOldEvent} or {@link
              * org.eclipselabs.garbagecat.domain.jdk.CmsSerialOldConcurrentModeFailureEvent}.
              */

@@ -23,6 +23,13 @@ import org.eclipselabs.garbagecat.util.jdk.JdkUtil;
  */
 public class TestTruncatedEvent extends TestCase {
 
+    public void testFullGcLine() {
+        String logLine = "123.456: [Full GC";
+        Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.TRUNCATED.toString() + ".", TruncatedEvent.match(logLine));
+        TruncatedEvent event = new TruncatedEvent(logLine);
+        Assert.assertEquals("Time stamp not parsed correctly.", 123456, event.getTimestamp());
+    }
+
     public void testCmsSerialOldLine() {
         String logLine = "100.714: [Full GC 100.714: [CMS";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.TRUNCATED.toString() + ".", TruncatedEvent.match(logLine));
