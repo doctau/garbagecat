@@ -167,7 +167,7 @@ public class GcManager {
      *            The date and time the JVM was started.
      * @return
      */
-    private String getPreprocessedLogEntry(String currentLogLine, String priorLogLine, String nextLogLine,
+    public static String getPreprocessedLogEntry(String currentLogLine, String priorLogLine, String nextLogLine,
             Date jvmStartDate) {
         String preprocessedLogLine = null;
         if (!JdkUtil.discardLogLine(currentLogLine)) {
