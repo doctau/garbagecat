@@ -93,7 +93,7 @@ public class CmsConcurrentEvent implements LogEvent {
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
     /**
      * The time when the GC event happened in milliseconds after JVM startup.
@@ -104,7 +104,7 @@ public class CmsConcurrentEvent implements LogEvent {
     /**
      * Create detail logging event from log entry.
      */
-    public CmsConcurrentEvent(String logEntry) {
+    public CmsConcurrentEvent(CharSequence logEntry) {
         this.logEntry = logEntry;
 
         Matcher matcher = PATTERN.matcher(logEntry);
@@ -113,7 +113,7 @@ public class CmsConcurrentEvent implements LogEvent {
         }
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 
@@ -132,7 +132,7 @@ public class CmsConcurrentEvent implements LogEvent {
      *            The log line to test.
      * @return true if the log line matches the event pattern, false otherwise.
      */
-    public static final boolean match(String logLine) {
+    public static final boolean match(CharSequence logLine) {
         return PATTERN.matcher(logLine).matches();
     }
 

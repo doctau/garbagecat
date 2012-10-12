@@ -58,7 +58,7 @@ public class ParNewCmsConcurrentEvent implements BlockingEvent, YoungCollection,
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
     /**
      * The elapsed clock time for the GC event in milliseconds (rounded).
@@ -103,7 +103,7 @@ public class ParNewCmsConcurrentEvent implements BlockingEvent, YoungCollection,
     /**
      * Create ParNew detail logging event from log entry.
      */
-    public ParNewCmsConcurrentEvent(String logEntry) {
+    public ParNewCmsConcurrentEvent(CharSequence logEntry) {
         this.logEntry = logEntry;
         Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
@@ -128,13 +128,13 @@ public class ParNewCmsConcurrentEvent implements BlockingEvent, YoungCollection,
      * @param timestamp
      * @param duration
      */
-    public ParNewCmsConcurrentEvent(String logEntry, long timestamp, int duration) {
+    public ParNewCmsConcurrentEvent(CharSequence logEntry, long timestamp, int duration) {
         this.logEntry = logEntry;
         this.timestamp = timestamp;
         this.duration = duration;
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 
@@ -181,7 +181,7 @@ public class ParNewCmsConcurrentEvent implements BlockingEvent, YoungCollection,
      *            The log line to test.
      * @return true if the log line matches the event pattern, false otherwise.
      */
-    public static final boolean match(String logLine) {
+    public static final boolean match(CharSequence logLine) {
         return PATTERN.matcher(logLine).matches();
     }
 }

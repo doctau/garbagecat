@@ -86,7 +86,7 @@ public class TruncatedEvent implements LogEvent {
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
     /**
      * The time when the GC event happened in milliseconds after JVM startup.
@@ -96,7 +96,7 @@ public class TruncatedEvent implements LogEvent {
     /**
      * Create ParNew detail logging event from log entry.
      */
-    public TruncatedEvent(String logEntry) {
+    public TruncatedEvent(CharSequence logEntry) {
         this.logEntry = logEntry;
         Matcher matcher = PATTERN_EXTRACT.matcher(logEntry);
         if (matcher.find()) {
@@ -104,7 +104,7 @@ public class TruncatedEvent implements LogEvent {
         }
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 
@@ -123,7 +123,7 @@ public class TruncatedEvent implements LogEvent {
      *            The log line to test.
      * @return true if the log line matches the event pattern, false otherwise.
      */
-    public static final boolean match(String logLine) {
+    public static final boolean match(CharSequence logLine) {
         for (int i = 0; i < PATTERNS.length; i++) {
             if (PATTERNS[i].matcher(logLine).matches()) {
                 return true;

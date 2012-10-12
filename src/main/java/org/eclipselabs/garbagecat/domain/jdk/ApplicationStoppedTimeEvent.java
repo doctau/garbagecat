@@ -57,17 +57,17 @@ public class ApplicationStoppedTimeEvent implements LogEvent {
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
 
     /**
      * Create detail logging event from log entry.
      */
-    public ApplicationStoppedTimeEvent(String logEntry) {
+    public ApplicationStoppedTimeEvent(CharSequence logEntry) {
         this.logEntry = logEntry;
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 
@@ -86,7 +86,7 @@ public class ApplicationStoppedTimeEvent implements LogEvent {
      *            The log line to test.
      * @return true if the log line matches the event pattern, false otherwise.
      */
-    public static final boolean match(String logLine) {
+    public static final boolean match(CharSequence logLine) {
         return PATTERN.matcher(logLine).matches();
     }
 

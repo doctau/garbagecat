@@ -28,7 +28,7 @@ public interface LogEvent {
     /**
      * @return The log entry for the event.
      */
-    String getLogEntry();
+    CharSequence getLogEntry();
 
     /**
      * @return The event identifier.

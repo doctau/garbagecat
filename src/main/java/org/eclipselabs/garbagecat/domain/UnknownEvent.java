@@ -25,19 +25,19 @@ public class UnknownEvent implements LogEvent {
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
     /**
      * Default constructor.
      * 
      * @param logEntry
      */
-    public UnknownEvent(String logEntry) {
+    public UnknownEvent(CharSequence logEntry) {
         super();
         this.logEntry = logEntry;
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 

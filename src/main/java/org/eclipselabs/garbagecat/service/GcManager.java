@@ -326,8 +326,8 @@ public class GcManager {
                         bottlenecks.add(JdkUtil.convertLogEntryTimestampsToDateStamp(event.getLogEntry(), jvm
                                 .getStartDate()));
                     } else {
-                        bottlenecks.add(priorEvent.getLogEntry());
-                        bottlenecks.add(event.getLogEntry());
+                        bottlenecks.add(priorEvent.getLogEntry().toString());
+                        bottlenecks.add(event.getLogEntry().toString());
                     }
                 } else {
                     if (jvm.getStartDate() != null) {
@@ -347,10 +347,10 @@ public class GcManager {
                         // Compare timestamps, since bottleneck has timestamp
                         if (!priorEvent.getLogEntry().equals(bottlenecks.get(bottlenecks.size() - 1))) {
                             bottlenecks.add("...");
-                            bottlenecks.add(priorEvent.getLogEntry());
-                            bottlenecks.add(event.getLogEntry());
+                            bottlenecks.add(priorEvent.getLogEntry().toString());
+                            bottlenecks.add(event.getLogEntry().toString());
                         } else {
-                            bottlenecks.add(event.getLogEntry());
+                            bottlenecks.add(event.getLogEntry().toString());
                         }
                     }
                 }

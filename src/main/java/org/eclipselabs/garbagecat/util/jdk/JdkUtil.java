@@ -115,7 +115,7 @@ public class JdkUtil {
      *            The log entry.
      * @return The <code>LogEventType</code> of the log entry.
      */
-    public static final LogEventType identifyEventType(String logLine) {
+    public static final LogEventType identifyEventType(CharSequence logLine) {
 
         // In order of most common events to limit checking
         if (ParallelScavengeEvent.match(logLine))
@@ -204,7 +204,7 @@ public class JdkUtil {
      *            The log line as it appears in the GC log.
      * @return The <code>LogEvent</code> corresponding to the log line.
      */
-    public static final LogEvent parseLogLine(String logLine) {
+    public static final LogEvent parseLogLine(CharSequence logLine) {
         LogEventType eventType = identifyEventType(logLine);
         LogEvent event = null;
         switch (eventType) {
@@ -341,8 +341,8 @@ public class JdkUtil {
      *            The duration of the log event.
      * @return The <code>BlockingEvent</code> for the given event values.
      */
-    public static final BlockingEvent hydrateBlockingEvent(LogEventType eventType, String logEntry, long timestamp,
-            int duration) {
+    public static final BlockingEvent hydrateBlockingEvent(LogEventType eventType, CharSequence logEntry,
+            long timestamp, int duration) {
         BlockingEvent event = null;
         switch (eventType) {
         case PARALLEL_SCAVENGE:
@@ -480,7 +480,7 @@ public class JdkUtil {
      *            The date/time the JVM started.
      * @return the log entry with the timestamp converted to a datestamp.
      */
-    public static final String convertLogEntryTimestampsToDateStamp(String logEntry, Date jvmStartDate) {
+    public static final String convertLogEntryTimestampsToDateStamp(CharSequence logEntry, Date jvmStartDate) {
         // Add the colon or space after the timestamp format so durations will
         // not get picked up.
         Matcher matcher = JdkRegEx.TIMESTAMP_PLUS_REGEX.matcher(logEntry);

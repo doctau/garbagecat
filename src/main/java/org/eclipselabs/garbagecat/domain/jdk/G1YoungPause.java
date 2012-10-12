@@ -66,7 +66,7 @@ public class G1YoungPause implements BlockingEvent, YoungCollection, CombinedDat
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
     /**
      * The elapsed clock time for the GC event in milliseconds (rounded).
@@ -96,7 +96,7 @@ public class G1YoungPause implements BlockingEvent, YoungCollection, CombinedDat
     /**
      * Create detail logging event from log entry.
      */
-    public G1YoungPause(String logEntry) {
+    public G1YoungPause(CharSequence logEntry) {
         this.logEntry = logEntry;
         Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
@@ -124,13 +124,13 @@ public class G1YoungPause implements BlockingEvent, YoungCollection, CombinedDat
      * @param timestamp
      * @param duration
      */
-    public G1YoungPause(String logEntry, long timestamp, int duration) {
+    public G1YoungPause(CharSequence logEntry, long timestamp, int duration) {
         this.logEntry = logEntry;
         this.timestamp = timestamp;
         this.duration = duration;
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 
@@ -165,7 +165,7 @@ public class G1YoungPause implements BlockingEvent, YoungCollection, CombinedDat
      *            The log line to test.
      * @return true if the log line matches the event pattern, false otherwise.
      */
-    public static final boolean match(String logLine) {
+    public static final boolean match(CharSequence logLine) {
         return PATTERN.matcher(logLine).matches();
     }
 }

@@ -210,7 +210,7 @@ public class JvmDao {
                     pst.setInt(PERM_SPACE_INDEX, 0);
                     pst.setInt(PERM_OCCUPANCY_INIT_INDEX, 0);
                 }
-                pst.setString(LOG_ENTRY_INDEX, event.getLogEntry());
+                pst.setString(LOG_ENTRY_INDEX, event.getLogEntry().toString());
                 pst.addBatch();
             }
             pst.executeBatch();

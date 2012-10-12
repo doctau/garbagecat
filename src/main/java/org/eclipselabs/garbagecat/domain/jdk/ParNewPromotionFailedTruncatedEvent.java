@@ -60,7 +60,7 @@ public class ParNewPromotionFailedTruncatedEvent implements BlockingEvent {
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
     /**
      * The elapsed clock time for the GC event in milliseconds (rounded).
@@ -75,7 +75,7 @@ public class ParNewPromotionFailedTruncatedEvent implements BlockingEvent {
     /**
      * Create ParNew detail logging event from log entry.
      */
-    public ParNewPromotionFailedTruncatedEvent(String logEntry) {
+    public ParNewPromotionFailedTruncatedEvent(CharSequence logEntry) {
         this.logEntry = logEntry;
         Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
@@ -91,13 +91,13 @@ public class ParNewPromotionFailedTruncatedEvent implements BlockingEvent {
      * @param timestamp
      * @param duration
      */
-    public ParNewPromotionFailedTruncatedEvent(String logEntry, long timestamp, int duration) {
+    public ParNewPromotionFailedTruncatedEvent(CharSequence logEntry, long timestamp, int duration) {
         this.logEntry = logEntry;
         this.timestamp = timestamp;
         this.duration = duration;
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 
@@ -120,7 +120,7 @@ public class ParNewPromotionFailedTruncatedEvent implements BlockingEvent {
      *            The log line to test.
      * @return true if the log line matches the event pattern, false otherwise.
      */
-    public static final boolean match(String logLine) {
+    public static final boolean match(CharSequence logLine) {
         return PATTERN.matcher(logLine).matches();
     }
 

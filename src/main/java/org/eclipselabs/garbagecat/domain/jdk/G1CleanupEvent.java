@@ -65,7 +65,7 @@ public class G1CleanupEvent implements BlockingEvent, CombinedData {
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
     /**
      * The elapsed clock time for the GC event in milliseconds (rounded).
@@ -95,7 +95,7 @@ public class G1CleanupEvent implements BlockingEvent, CombinedData {
     /**
      * Create detail logging event from log entry.
      */
-    public G1CleanupEvent(String logEntry) {
+    public G1CleanupEvent(CharSequence logEntry) {
         this.logEntry = logEntry;
         Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
@@ -114,13 +114,13 @@ public class G1CleanupEvent implements BlockingEvent, CombinedData {
      * @param timestamp
      * @param duration
      */
-    public G1CleanupEvent(String logEntry, long timestamp, int duration) {
+    public G1CleanupEvent(CharSequence logEntry, long timestamp, int duration) {
         this.logEntry = logEntry;
         this.timestamp = timestamp;
         this.duration = duration;
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 
@@ -155,7 +155,7 @@ public class G1CleanupEvent implements BlockingEvent, CombinedData {
      *            The log line to test.
      * @return true if the log line matches the event pattern, false otherwise.
      */
-    public static final boolean match(String logLine) {
+    public static final boolean match(CharSequence logLine) {
         return PATTERN.matcher(logLine).matches();
     }
 }

@@ -47,7 +47,7 @@ public class VerboseGcOldEvent implements BlockingEvent, OldCollection, Combined
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
     /**
      * The elapsed clock time for the GC event in milliseconds (rounded).
@@ -84,7 +84,7 @@ public class VerboseGcOldEvent implements BlockingEvent, OldCollection, Combined
     /**
      * Create serial old detail logging event from log entry.
      */
-    public VerboseGcOldEvent(String logEntry) {
+    public VerboseGcOldEvent(CharSequence logEntry) {
         this.logEntry = logEntry;
         Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
@@ -103,7 +103,7 @@ public class VerboseGcOldEvent implements BlockingEvent, OldCollection, Combined
      * @param timestamp
      * @param duration
      */
-    public VerboseGcOldEvent(String logEntry, long timestamp, int duration) {
+    public VerboseGcOldEvent(CharSequence logEntry, long timestamp, int duration) {
         this.logEntry = logEntry;
         this.timestamp = timestamp;
         this.duration = duration;
@@ -113,7 +113,7 @@ public class VerboseGcOldEvent implements BlockingEvent, OldCollection, Combined
         return JdkUtil.LogEventType.VERBOSE_GC_OLD.toString();
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 
@@ -144,7 +144,7 @@ public class VerboseGcOldEvent implements BlockingEvent, OldCollection, Combined
      *            The log line to test.
      * @return true if the log line matches the event pattern, false otherwise.
      */
-    public static final boolean match(String logLine) {
+    public static final boolean match(CharSequence logLine) {
         return PATTERN.matcher(logLine).matches();
     }
 }// VerboseGcOldEvent
