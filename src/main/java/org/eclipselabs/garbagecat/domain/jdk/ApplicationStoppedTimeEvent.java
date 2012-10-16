@@ -54,8 +54,21 @@ public class ApplicationStoppedTimeEvent implements LogEvent {
      */
     private static Pattern pattern = Pattern.compile(ApplicationStoppedTimeEvent.REGEX);
 
+    /**
+     * The log entry for the event. Can be used for debugging purposes.
+     */
+    private String logEntry;
+
+
+    /**
+     * Create detail logging event from log entry.
+     */
+    public ApplicationStoppedTimeEvent(String logEntry) {
+        this.logEntry = logEntry;
+    }
+
     public String getLogEntry() {
-        throw new UnsupportedOperationException("Event does not include log entry information");
+        return logEntry;
     }
 
     public String getName() {

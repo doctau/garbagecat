@@ -14,7 +14,11 @@ package org.eclipselabs.garbagecat.domain.jdk;
 
 import java.util.regex.Pattern;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.eclipselabs.garbagecat.domain.LogEvent;
+import org.eclipselabs.garbagecat.util.jdk.JdkMath;
 import org.eclipselabs.garbagecat.util.jdk.JdkUtil;
 
 /**
@@ -53,8 +57,20 @@ public class ApplicationConcurrentTimeEvent implements LogEvent {
      */
     private static Pattern pattern = Pattern.compile(ApplicationConcurrentTimeEvent.REGEX);
 
+    /**
+     * The log entry for the event. Can be used for debugging purposes.
+     */
+    private String logEntry;
+
+    /**
+     * Create detail logging event from log entry.
+     */
+    public ApplicationConcurrentTimeEvent(String logEntry) {
+        this.logEntry = logEntry;
+     }
+
     public String getLogEntry() {
-        throw new UnsupportedOperationException("Event does not include log entry information");
+        return logEntry;
     }
 
     public String getName() {

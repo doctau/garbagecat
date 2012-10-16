@@ -273,13 +273,13 @@ public class JdkUtil {
             event = new SerialSerialOldPermDataEvent(logLine);
             break;
         case CMS_CONCURRENT:
-            event = new CmsConcurrentEvent();
+            event = new CmsConcurrentEvent(logLine);
             break;
         case APPLICATION_CONCURRENT_TIME:
-            event = new ApplicationConcurrentTimeEvent();
+            event = new ApplicationConcurrentTimeEvent(logLine);
             break;
         case APPLICATION_STOPPED_TIME:
-            event = new ApplicationStoppedTimeEvent();
+            event = new ApplicationStoppedTimeEvent(logLine);
             break;
         case VERBOSE_GC_YOUNG:
             event = new VerboseGcYoungEvent(logLine);
