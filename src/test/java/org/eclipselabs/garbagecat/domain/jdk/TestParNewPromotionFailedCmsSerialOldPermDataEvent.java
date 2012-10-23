@@ -86,5 +86,6 @@ public class TestParNewPromotionFailedCmsSerialOldPermDataEvent extends TestCase
                 + "[CMS: 664527K->317110K(1507328K), 2.9523520 secs] 697709K->317110K(1566336K), " + "[CMS Perm : 83780K->83711K(131072K)], 3.0039040 secs] ";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.PAR_NEW_PROMOTION_FAILED_CMS_SERIAL_OLD_PERM_DATA.toString() + ".", ParNewPromotionFailedCmsSerialOldPermDataEvent
                 .match(logLine));
+        ParNewPromotionFailedCmsSerialOldPermDataEvent event = new ParNewPromotionFailedCmsSerialOldPermDataEvent(logLine);
     }
 }

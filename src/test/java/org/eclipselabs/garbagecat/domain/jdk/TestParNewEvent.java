@@ -71,6 +71,7 @@ public class TestParNewEvent extends TestCase {
         String logLine = "68331.885: [GC 68331.885: [ParNew: 149120K->18211K(149120K), " + "0.0458577 secs] 4057776K->3931241K(8367360K), 0.0461448 secs] "
                 + "[Times: user=0.34 sys=0.01, real=0.05 secs]    ";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.PAR_NEW.toString() + ".", ParNewEvent.match(logLine));
+        ParNewEvent event = new ParNewEvent(logLine);
     }
 
     public void testLogLineHugeTimestamp() {

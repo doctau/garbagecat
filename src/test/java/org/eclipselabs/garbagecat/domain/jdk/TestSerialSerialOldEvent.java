@@ -57,5 +57,6 @@ public class TestSerialSerialOldEvent extends TestCase {
         String logLine = "160.678: [GC 160.678: [DefNew: 450682K->450682K(471872K), 0.0000099 secs]" + "160.678: [Tenured: 604639K->552856K(1048576K), 1.1178810 secs] "
                 + "1055322K->552856K(1520448K), 1.1180562 secs]          ";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.SERIAL_SERIAL_OLD.toString() + ".", SerialSerialOldEvent.match(logLine));
+        SerialSerialOldEvent event = new SerialSerialOldEvent(logLine);
     }
 }

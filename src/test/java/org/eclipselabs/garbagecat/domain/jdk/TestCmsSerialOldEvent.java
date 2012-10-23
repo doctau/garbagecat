@@ -43,6 +43,7 @@ public class TestCmsSerialOldEvent extends TestCase {
     public void testLogLineWhitespaceAtEnd() {
         String logLine = "5.980: [Full GC 5.980: " + "[CMS: 5589K->5796K(122880K), 0.0889610 secs] 11695K->5796K(131072K), " + "[CMS Perm : 13140K->13124K(131072K)], 0.0891270 secs] ";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.CMS_SERIAL_OLD.toString() + ".", CmsSerialOldEvent.match(logLine));
+        CmsSerialOldEvent event = new CmsSerialOldEvent(logLine);
     }
 
     public void testLogLineJdk16() {

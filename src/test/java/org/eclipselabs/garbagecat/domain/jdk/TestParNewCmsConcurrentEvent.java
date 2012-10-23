@@ -57,6 +57,7 @@ public class TestParNewCmsConcurrentEvent extends TestCase {
         String logLine = "2210.281: [GC 2210.282: [ParNew2210.314: [CMS-concurrent-abortable-preclean: " + "0.043/0.144 secs]: 212981K->3156K(242304K), 0.0364435 secs] 4712182K->4502357K(4971420K), "
                 + "0.0368807 secs]    ";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.PAR_NEW_CMS_CONCURRENT.toString() + ".", ParNewCmsConcurrentEvent.match(logLine));
+        ParNewCmsConcurrentEvent event = new ParNewCmsConcurrentEvent(logLine);
     }
 
     public void testLogLineSweep() {

@@ -94,5 +94,6 @@ public class TestParNewPromotionFailedCmsConcurrentModeFailureEvent extends Test
                 + "0.1785000 secs]25281.193: [CMS (concurrent mode failure): 1048384K->1015603K(1179648K), " + "7.6767910 secs] 1292923K->1015603K(1441600K), 7.8557660 secs]      ";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.PAR_NEW_PROMOTION_FAILED_CMS_CONCURRENT_MODE_FAILURE.toString() + ".",
                 ParNewPromotionFailedCmsConcurrentModeFailureEvent.match(logLine));
+        ParNewPromotionFailedCmsConcurrentModeFailureEvent event = new ParNewPromotionFailedCmsConcurrentModeFailureEvent(logLine);
     }
 }

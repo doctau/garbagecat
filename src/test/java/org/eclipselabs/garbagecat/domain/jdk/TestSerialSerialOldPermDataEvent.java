@@ -64,5 +64,6 @@ public class TestSerialSerialOldPermDataEvent extends TestCase {
         String logLine = "3727.365: [GC 3727.365: [DefNew: 400314K->400314K(400384K), 0.0000550 secs]"
                 + "3727.365: [Tenured: 837793K->597490K(889536K), 44.7498530 secs] 1238107K->597490K(1289920K), " + "[Perm : 54745K->54745K(54784K)], 44.7501880 secs]      ";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.SERIAL_SERIAL_OLD_PERM_DATA.toString() + ".", SerialSerialOldPermDataEvent.match(logLine));
+        SerialSerialOldPermDataEvent event = new SerialSerialOldPermDataEvent(logLine);
     }
 }

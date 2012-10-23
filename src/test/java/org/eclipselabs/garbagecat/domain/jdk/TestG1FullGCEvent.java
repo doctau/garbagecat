@@ -21,5 +21,6 @@ public class TestG1FullGCEvent extends TestCase {
     public void testFullSystemGC() {
         String logLine = "1302.524: [Full GC (System.gc()) 653M->586M(979M), 1.6364900 secs]";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.G1_FULL_GC.toString() + ".", G1FullGCEvent.match(logLine));
+        G1FullGCEvent event = new G1FullGCEvent(logLine);
     }
 }

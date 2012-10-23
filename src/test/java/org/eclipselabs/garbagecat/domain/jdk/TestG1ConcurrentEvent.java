@@ -21,30 +21,36 @@ public class TestG1ConcurrentEvent extends TestCase {
     public void testRootRegionScanStart() {
         String logLine = "50.101: [GC concurrent-root-region-scan-start]";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.G1_CONCURRENT.toString() + ".", G1ConcurrentEvent.match(logLine));
+        G1ConcurrentEvent event = new G1ConcurrentEvent(logLine);
     }
 
     public void testRootRegionScanEnd() {
         String logLine = "50.136: [GC concurrent-root-region-scan-end, 0.0346620]";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.G1_CONCURRENT.toString() + ".", G1ConcurrentEvent.match(logLine));
+        G1ConcurrentEvent event = new G1ConcurrentEvent(logLine);
     }
 
     public void testMarkStart() {
         String logLine = "50.136: [GC concurrent-mark-start]";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.G1_CONCURRENT.toString() + ".", G1ConcurrentEvent.match(logLine));
+        G1ConcurrentEvent event = new G1ConcurrentEvent(logLine);
     }
 
     public void testMarkEnd() {
         String logLine = "50.655: [GC concurrent-mark-end, 0.5186330 sec]";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.G1_CONCURRENT.toString() + ".", G1ConcurrentEvent.match(logLine));
+        G1ConcurrentEvent event = new G1ConcurrentEvent(logLine);
     }
 
     public void testCleanupStart() {
         String logLine = "50.685: [GC concurrent-cleanup-start]";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.G1_CONCURRENT.toString() + ".", G1ConcurrentEvent.match(logLine));
+        G1ConcurrentEvent event = new G1ConcurrentEvent(logLine);
     }
 
     public void testCleanupEnd() {
         String logLine = "50.685: [GC concurrent-cleanup-end, 0.0001080]";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.G1_CONCURRENT.toString() + ".", G1ConcurrentEvent.match(logLine));
+        G1ConcurrentEvent event = new G1ConcurrentEvent(logLine);
     }
 }

@@ -43,6 +43,7 @@ public class TestSerialOldEvent extends TestCase {
     public void testLogLineWhitespaceAtEnd() {
         String logLine = "187.159: [Full GC 187.160: " + "[Tenured: 97171K->102832K(815616K), 0.6977443 secs] 152213K->102832K(907328K), " + "[Perm : 49152K->49154K(49158K)], 0.6929258 secs]       ";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.SERIAL_OLD.toString() + ".", SerialOldEvent.match(logLine));
+        SerialOldEvent event = new SerialOldEvent(logLine);
     }
 
     public void testLogLineJdf16() {

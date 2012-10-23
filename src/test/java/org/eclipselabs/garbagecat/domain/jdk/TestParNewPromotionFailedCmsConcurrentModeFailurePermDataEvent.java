@@ -167,5 +167,6 @@ public class TestParNewPromotionFailedCmsConcurrentModeFailurePermDataEvent exte
                 + "(concurrent mode failure): 5979868K->5968004K(6014592K), 78.3207206 secs] " + "6205857K->5968004K(6256896K), [CMS Perm : 207397K->207212K(262144K)], 79.6222096 secs]   ";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.PAR_NEW_PROMOTION_FAILED_CMS_CONCURRENT_MODE_FAILURE_PERM_DATA.toString() + ".",
                 ParNewPromotionFailedCmsConcurrentModeFailurePermDataEvent.match(logLine));
+        ParNewPromotionFailedCmsConcurrentModeFailurePermDataEvent event = new ParNewPromotionFailedCmsConcurrentModeFailurePermDataEvent(logLine);
     }
 }

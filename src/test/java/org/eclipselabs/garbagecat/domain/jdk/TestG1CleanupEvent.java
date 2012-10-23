@@ -21,5 +21,6 @@ public class TestG1CleanupEvent extends TestCase {
     public void testCleanup() {
         String logLine = "18.650: [GC cleanup 297M->236M(512M), 0.0014690 secs]";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.G1_CLEANUP.toString() + ".", G1CleanupEvent.match(logLine));
+        G1CleanupEvent event = new G1CleanupEvent(logLine);
     }
 }

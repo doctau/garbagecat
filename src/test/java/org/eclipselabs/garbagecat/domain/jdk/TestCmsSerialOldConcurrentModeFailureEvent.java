@@ -215,5 +215,6 @@ public class TestCmsSerialOldConcurrentModeFailureEvent extends TestCase {
         String logLine = "28282.075: [Full GC 28282.075 (concurrent mode failure): " + "1179601K->1179648K(1179648K), 10.7510650 secs] 1441361K->1180553K(1441600K), "
                 + "[CMS Perm : 71172K->71171K(262144K)], 10.7515460 secs]    ";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.CMS_SERIAL_OLD_CONCURRENT_MODE_FAILURE.toString() + ".", CmsSerialOldConcurrentModeFailureEvent.match(logLine));
+        CmsSerialOldConcurrentModeFailureEvent event = new CmsSerialOldConcurrentModeFailureEvent(logLine);
     }
 }

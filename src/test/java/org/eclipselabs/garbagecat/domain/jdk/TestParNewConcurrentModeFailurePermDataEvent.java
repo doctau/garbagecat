@@ -159,5 +159,6 @@ public class TestParNewConcurrentModeFailurePermDataEvent extends TestCase {
         String logLine = "3070.289: [GC 3070.289: [ParNew: 207744K->207744K(242304K), 0.0000682 secs]" + "3070.289: [CMS3081.621: [CMS-concurrent-mark: 11.907/12.958 secs] "
                 + "(concurrent mode failure): 6010121K->6014591K(6014592K), 79.0505229 secs] " + "6217865K->6028029K(6256896K), [CMS Perm : 206688K->206662K(262144K)], 79.0509595 secs]  ";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.PAR_NEW_CONCURRENT_MODE_FAILURE_PERM_DATA.toString() + ".", ParNewConcurrentModeFailurePermDataEvent.match(logLine));
+        ParNewConcurrentModeFailurePermDataEvent event = new ParNewConcurrentModeFailurePermDataEvent(logLine);
     }
 }

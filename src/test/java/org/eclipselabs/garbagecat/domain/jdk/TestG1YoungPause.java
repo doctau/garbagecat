@@ -22,11 +22,13 @@ public class TestG1YoungPause extends TestCase {
     public void testYoungPause() {
         String logLine = "1113.145: [GC pause (young) 849M->583M(968M), 0.0392710 secs]";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.G1_YOUNG_PAUSE.toString() + ".", G1YoungPause.match(logLine));
+        G1YoungPause event = new G1YoungPause(logLine);
     }
 
     public void testNotInitialMark() {
         String logLine = "1244.357: [GC pause (young) (initial-mark) 847M->599M(970M), 0.0566840 secs]";
         Assert.assertFalse("Log line recognized as " + JdkUtil.LogEventType.G1_YOUNG_PAUSE.toString() + ".", G1YoungPause.match(logLine));
+        // should be G1YoungInitialMarkEvent
     }
     
     public void testLogLineKilobytes() {

@@ -40,5 +40,6 @@ public class TestSerialEvent extends TestCase {
     public void testLogLineWhitespaceAtEnd() {
         String logLine = "7.798: [GC 7.798: [DefNew: 37172K->3631K(39296K), 0.0209300 secs] " + "41677K->10314K(126720K), 0.0210210 secs] ";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.SERIAL.toString() + ".", SerialEvent.match(logLine));
+        SerialEvent event = new SerialEvent(logLine);
     }
 }

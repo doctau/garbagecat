@@ -44,6 +44,7 @@ public class TestParallelOldCompactingEvent extends TestCase {
     public void testLogLineWhiteSpaceAtEnd() {
         String logLine = "3.600: [Full GC [PSYoungGen: 5424K->0K(38208K)] " + "[ParOldGen: 488K->5786K(87424K)] 5912K->5786K(125632K) " + "[PSPermGen: 13092K->13094K(131072K)], 0.0699360 secs]  ";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.PARALLEL_OLD_COMPACTING.toString() + ".", ParallelOldCompactingEvent.match(logLine));
+        ParallelOldCompactingEvent event = new ParallelOldCompactingEvent(logLine);
     }
 
     public void testLogLineJdk16() {

@@ -21,5 +21,8 @@ public class TestG1RemarkEvent extends TestCase {
     public void testRemark() {
         String logLine = "106.129: [GC remark, 0.0450170 secs]";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.G1_REMARK.toString() + ".", G1RemarkEvent.match(logLine));
+        G1RemarkEvent event = new G1RemarkEvent(logLine);
+        Assert.assertEquals(106129, event.getTimestamp());
+        Assert.assertEquals(45, event.getDuration());
     }
 }

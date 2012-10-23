@@ -34,6 +34,7 @@ public class TestCmsInitialMarkEvent extends TestCase {
     public void testLogLineWhitespaceAtEnd() {
         String logLine = "251.763: [GC [1 CMS-initial-mark: 4133273K(8218240K)] " + "4150346K(8367360K), 0.0174433 secs]         ";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.CMS_INITIAL_MARK.toString() + ".", CmsInitialMarkEvent.match(logLine));
+        CmsInitialMarkEvent event = new CmsInitialMarkEvent(logLine);
     }
 
     public void testLogLineWithTimesData() {

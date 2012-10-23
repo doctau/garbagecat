@@ -38,5 +38,6 @@ public class TestVerboseGcOldEvent extends TestCase {
     public void testLogLineWhitespaceAtEnd() {
         String logLine = "2143132.151: [Full GC 1606823K->1409859K(2976064K), 12.0855599 secs]    ";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.VERBOSE_GC_OLD.toString() + ".", VerboseGcOldEvent.match(logLine));
+        VerboseGcOldEvent event = new VerboseGcOldEvent(logLine);
     }
 }

@@ -53,5 +53,6 @@ public class TestG1YoungPausePreprocessedEvent extends TestCase {
                 + "[Times: user=0.01 sys=0.00, real=0.01 secs]           ";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.G1_YOUNG_PAUSE_PREPROCESSED.toString()
                 + ".", G1YoungPausePreprocessedEvent.match(logLine));
+        G1YoungPausePreprocessedEvent event = new G1YoungPausePreprocessedEvent(logLine);
     }
 }

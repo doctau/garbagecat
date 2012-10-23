@@ -40,6 +40,7 @@ public class TestParallelScavengeEvent extends TestCase {
     public void testLogLineWhitespaceAtEnd() {
         String logLine = "19810.091: [GC [PSYoungGen: 27808K->632K(28032K)] " + "160183K->133159K(585088K), 0.0225213 secs]     ";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.PARALLEL_SCAVENGE.toString() + ".", ParallelScavengeEvent.match(logLine));
+        ParallelScavengeEvent event = new ParallelScavengeEvent(logLine);
     }
 
     public void testStressedJvmLogLine() {

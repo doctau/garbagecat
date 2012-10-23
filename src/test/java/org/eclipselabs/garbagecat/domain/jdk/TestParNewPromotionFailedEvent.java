@@ -52,5 +52,6 @@ public class TestParNewPromotionFailedEvent extends TestCase {
     public void testLogLineWhitespaceAtEnd() {
         String logLine = "144501.626: [GC 144501.627: [ParNew (promotion failed): " + "680066K->680066K(707840K), 3.7067346 secs] 1971073K->1981370K(2018560K), " + "3.7084059 secs]   ";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.PAR_NEW_PROMOTION_FAILED.toString() + ".", ParNewPromotionFailedEvent.match(logLine));
+        ParNewPromotionFailedEvent event = new ParNewPromotionFailedEvent(logLine);
     }
 }

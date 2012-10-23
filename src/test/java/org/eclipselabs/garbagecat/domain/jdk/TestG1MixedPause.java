@@ -21,5 +21,11 @@ public class TestG1MixedPause extends TestCase {
     public void testMixedPause() {
         String logLine = "72.598: [GC pause (mixed) 643M->513M(724M), 0.1686650 secs]";
         Assert.assertTrue("Log line not recognized as " + JdkUtil.LogEventType.G1_MIXED_PAUSE.toString() + ".", G1MixedPause.match(logLine));
+        G1MixedPause event = new G1MixedPause(logLine);
+        Assert.assertEquals(72598, event.getTimestamp());
+        Assert.assertEquals(643 * 1024, event.getCombinedOccupancyInit());
+        Assert.assertEquals(513 * 1024, event.getCombinedOccupancyEnd());
+        Assert.assertEquals(724 * 1024, event.getCombinedSpace());
+        Assert.assertEquals(168, event.getDuration());
     }
 }
