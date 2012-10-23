@@ -106,10 +106,12 @@ public class G1FullGCEvent implements BlockingEvent, CombinedData {
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(12)).longValue();
             trigger = matcher.group(13);
-            combined = Integer.parseInt(matcher.group(14)) * 1024;
-            combinedEnd = Integer.parseInt(matcher.group(15)) * 1024;
-            combinedAvailable = Integer.parseInt(matcher.group(16)) * 1024;
-            duration = JdkMath.convertSecsToMillis(matcher.group(17)).intValue();
+            combined = JdkMath.parseSize(matcher.group(14), matcher.group(15));
+            combinedEnd = JdkMath.parseSize(matcher.group(16), matcher.group(17));
+            combinedAvailable = JdkMath.parseSize(matcher.group(18), matcher.group(19));
+            duration = JdkMath.convertSecsToMillis(matcher.group(20)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

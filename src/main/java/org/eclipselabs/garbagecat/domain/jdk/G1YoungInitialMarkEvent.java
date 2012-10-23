@@ -102,10 +102,12 @@ public class G1YoungInitialMarkEvent implements BlockingEvent, CombinedData {
         Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(12)).longValue();
-            combined = Integer.parseInt(matcher.group(13)) * 1024;
-            combinedEnd = Integer.parseInt(matcher.group(14)) * 1024;
-            combinedAvailable = Integer.parseInt(matcher.group(15)) * 1024;
-            duration = JdkMath.convertSecsToMillis(matcher.group(16)).intValue();
+            combined = JdkMath.parseSize(matcher.group(13), matcher.group(14));
+            combinedEnd = JdkMath.parseSize(matcher.group(15), matcher.group(16));
+            combinedAvailable = JdkMath.parseSize(matcher.group(17), matcher.group(18));
+            duration = JdkMath.convertSecsToMillis(matcher.group(19)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

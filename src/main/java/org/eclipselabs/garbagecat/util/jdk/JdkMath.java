@@ -108,4 +108,16 @@ public class JdkMath {
         throughput = throughput.movePointRight(2);
         return throughput.intValue();
     }
+
+    public static int parseSize(String num, String unit) {
+        int size = Integer.parseInt(num);
+        if (unit.isEmpty() || unit.equals(JdkRegEx.KILOBYTES)) {
+            size = size * 1;
+        } else if (unit.equals(JdkRegEx.MEGABYTES)) {
+            size = size * 1024;
+        } else {
+            throw new IllegalArgumentException("Unknown units");
+        }
+        return size;
+    }
 }

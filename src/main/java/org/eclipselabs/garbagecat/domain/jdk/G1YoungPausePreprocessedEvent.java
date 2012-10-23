@@ -95,19 +95,12 @@ public class G1YoungPausePreprocessedEvent implements BlockingEvent, YoungCollec
         Matcher matcher = pattern.matcher(logEntry);
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(1)).longValue();
-            combined = Integer.parseInt(matcher.group(3));
-            if (matcher.group(4).equals(JdkRegEx.MEGABYTES)) {
-                combined = combined * 1024;
-            }
-            combinedEnd = Integer.parseInt(matcher.group(5));
-            if (matcher.group(6).equals(JdkRegEx.MEGABYTES)) {
-                combinedEnd = combinedEnd * 1024;
-            }
-            combinedAvailable = Integer.parseInt(matcher.group(7));
-            if (matcher.group(8).equals(JdkRegEx.MEGABYTES)) {
-                combinedAvailable = combinedAvailable * 1024;
-            }
+            combined = JdkMath.parseSize(matcher.group(3), matcher.group(4));
+            combinedEnd = JdkMath.parseSize(matcher.group(5), matcher.group(6));
+            combinedAvailable = JdkMath.parseSize(matcher.group(7), matcher.group(8));
             duration = JdkMath.convertSecsToMillis(matcher.group(2)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 
