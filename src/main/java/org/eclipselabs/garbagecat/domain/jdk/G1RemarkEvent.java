@@ -85,6 +85,8 @@ public class G1RemarkEvent implements BlockingEvent {
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(12)).longValue();
             duration = JdkMath.convertSecsToMillis(matcher.group(13)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

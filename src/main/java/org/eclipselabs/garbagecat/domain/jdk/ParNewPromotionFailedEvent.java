@@ -96,6 +96,8 @@ public class ParNewPromotionFailedEvent implements BlockingEvent {
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(1)).longValue();
             duration = JdkMath.convertSecsToMillis(matcher.group(11)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

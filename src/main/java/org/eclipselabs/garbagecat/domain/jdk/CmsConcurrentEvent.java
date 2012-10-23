@@ -110,6 +110,8 @@ public class CmsConcurrentEvent implements LogEvent {
         Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(13)).longValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

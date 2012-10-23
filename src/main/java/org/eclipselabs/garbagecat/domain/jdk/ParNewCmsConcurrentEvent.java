@@ -118,6 +118,8 @@ public class ParNewCmsConcurrentEvent implements BlockingEvent, YoungCollection,
             int totalAllocation = Integer.parseInt(matcher.group(12));
             oldAllocation = totalAllocation - youngAvailable;
             duration = JdkMath.convertSecsToMillis(matcher.group(13)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

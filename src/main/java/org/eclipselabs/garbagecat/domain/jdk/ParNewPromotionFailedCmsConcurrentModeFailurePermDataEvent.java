@@ -172,6 +172,8 @@ public class ParNewPromotionFailedCmsConcurrentModeFailurePermDataEvent implemen
             permGenEnd = Integer.parseInt(matcher.group(22));
             permGenAllocation = Integer.parseInt(matcher.group(23));
             duration = JdkMath.convertSecsToMillis(matcher.group(25)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

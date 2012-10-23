@@ -180,6 +180,8 @@ public class ParNewConcurrentModeFailurePermDataEvent implements BlockingEvent, 
             permGenEnd = Integer.parseInt(matcher.group(20));
             permGenAllocation = Integer.parseInt(matcher.group(21));
             duration = JdkMath.convertSecsToMillis(matcher.group(23)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

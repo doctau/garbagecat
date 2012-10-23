@@ -93,6 +93,8 @@ public class VerboseGcYoungEvent implements BlockingEvent, YoungCollection, Comb
             combinedEnd = Integer.parseInt(matcher.group(3));
             combinedAllocation = Integer.parseInt(matcher.group(4));
             duration = JdkMath.convertSecsToMillis(matcher.group(5)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }// VerboseGcYoungEvent()
 

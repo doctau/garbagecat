@@ -146,6 +146,8 @@ public class SerialSerialOldPermDataEvent implements BlockingEvent, YoungCollect
             permGenEnd = Integer.parseInt(matcher.group(16));
             permGenAllocation = Integer.parseInt(matcher.group(17));
             duration = JdkMath.convertSecsToMillis(matcher.group(18)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }// SerialSerialOldPermDataEvent()
 

@@ -158,6 +158,8 @@ public class CmsSerialOldEvent implements BlockingEvent, OldCollection, PermColl
             permGenEnd = Integer.parseInt(matcher.group(12));
             permGenAllocation = Integer.parseInt(matcher.group(13));
             duration = JdkMath.convertSecsToMillis(matcher.group(15)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

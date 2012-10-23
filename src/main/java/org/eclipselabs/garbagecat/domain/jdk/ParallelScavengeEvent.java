@@ -128,6 +128,8 @@ public class ParallelScavengeEvent implements BlockingEvent, YoungCollection, Yo
             int totalAllocation = Integer.parseInt(matcher.group(8));
             oldAllocation = totalAllocation - youngAvailable;
             duration = JdkMath.convertSecsToMillis(matcher.group(9)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

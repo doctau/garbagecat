@@ -119,6 +119,8 @@ public class ParNewCmsSerialOldEvent implements BlockingEvent, OldCollection, Yo
             int totalAllocation = Integer.parseInt(matcher.group(14));
             youngAvailable = totalAllocation - oldAllocation;
             duration = JdkMath.convertSecsToMillis(matcher.group(15)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

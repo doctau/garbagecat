@@ -81,6 +81,8 @@ public class CmsRemarkEvent implements BlockingEvent {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(1)).longValue();
             // The last duration is the total duration for the phase.
             duration = JdkMath.convertSecsToMillis(matcher.group(12)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

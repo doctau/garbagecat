@@ -154,6 +154,8 @@ public class ParallelSerialOldEvent implements BlockingEvent, OldCollection, Per
             permGenEnd = Integer.parseInt(matcher.group(13));
             permGenAllocation = Integer.parseInt(matcher.group(14));
             duration = JdkMath.convertSecsToMillis(matcher.group(15)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

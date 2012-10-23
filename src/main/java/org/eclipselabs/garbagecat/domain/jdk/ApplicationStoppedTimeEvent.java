@@ -64,6 +64,8 @@ public class ApplicationStoppedTimeEvent implements LogEvent {
      * Create detail logging event from log entry.
      */
     public ApplicationStoppedTimeEvent(CharSequence logEntry) {
+        if (!match(logEntry))
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         this.logEntry = logEntry;
     }
 

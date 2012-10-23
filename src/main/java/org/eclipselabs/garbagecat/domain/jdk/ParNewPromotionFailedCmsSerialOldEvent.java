@@ -157,6 +157,8 @@ public class ParNewPromotionFailedCmsSerialOldEvent implements BlockingEvent, Ol
             int totalAllocation = Integer.parseInt(matcher.group(16));
             youngAvailable = totalAllocation - oldAllocation;
             duration = JdkMath.convertSecsToMillis(matcher.group(17)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

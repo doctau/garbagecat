@@ -136,6 +136,8 @@ public class ParNewEvent implements BlockingEvent, YoungCollection, YoungData, O
             int totalAllocation = Integer.parseInt(matcher.group(11));
             oldAllocation = totalAllocation - youngAvailable;
             duration = JdkMath.convertSecsToMillis(matcher.group(13)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

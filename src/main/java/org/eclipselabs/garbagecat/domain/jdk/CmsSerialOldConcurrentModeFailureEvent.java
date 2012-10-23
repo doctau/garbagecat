@@ -217,6 +217,8 @@ public class CmsSerialOldConcurrentModeFailureEvent implements BlockingEvent, Ol
             permGenEnd = Integer.parseInt(matcher.group(31));
             permGenAllocation = Integer.parseInt(matcher.group(32));
             duration = JdkMath.convertSecsToMillis(matcher.group(34)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

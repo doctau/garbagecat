@@ -127,6 +127,8 @@ public class SerialEvent implements BlockingEvent, YoungCollection, YoungData, O
             int totalAllocation = Integer.parseInt(matcher.group(10));
             oldAllocation = totalAllocation - youngAvailable;
             duration = JdkMath.convertSecsToMillis(matcher.group(11)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

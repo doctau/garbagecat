@@ -162,6 +162,8 @@ public class ParallelOldCompactingEvent implements BlockingEvent, OldCollection,
             permGenEnd = Integer.parseInt(matcher.group(13));
             permGenAllocation = Integer.parseInt(matcher.group(14));
             duration = JdkMath.convertSecsToMillis(matcher.group(15)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

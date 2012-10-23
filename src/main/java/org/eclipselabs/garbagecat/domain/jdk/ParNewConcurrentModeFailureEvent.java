@@ -193,6 +193,8 @@ public class ParNewConcurrentModeFailureEvent implements BlockingEvent, OldColle
             int totalAllocation = Integer.parseInt(matcher.group(18));
             youngAvailable = totalAllocation - oldAllocation;
             duration = JdkMath.convertSecsToMillis(matcher.group(20)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

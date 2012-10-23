@@ -170,6 +170,8 @@ public class ParNewPromotionFailedCmsSerialOldPermDataEvent implements BlockingE
             permGenEnd = Integer.parseInt(matcher.group(17));
             permGenAllocation = Integer.parseInt(matcher.group(18));
             duration = JdkMath.convertSecsToMillis(matcher.group(20)).intValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + REGEX);
         }
     }
 

@@ -101,6 +101,8 @@ public class TruncatedEvent implements LogEvent {
         Matcher matcher = PATTERN_EXTRACT.matcher(logEntry);
         if (matcher.find()) {
             timestamp = JdkMath.convertSecsToMillis(matcher.group(1)).longValue();
+        } else {
+            throw new IllegalArgumentException("log entry did not match " + PATTERN_EXTRACT);
         }
     }
 
