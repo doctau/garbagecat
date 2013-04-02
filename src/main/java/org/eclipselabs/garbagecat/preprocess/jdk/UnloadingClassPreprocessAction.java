@@ -58,7 +58,7 @@ public class UnloadingClassPreprocessAction implements PreprocessAction {
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
     /**
      * Create Unloading class event from log entry.
@@ -68,7 +68,7 @@ public class UnloadingClassPreprocessAction implements PreprocessAction {
      * @param nextLogEntry
      *            The next log line.
      */
-    public UnloadingClassPreprocessAction(String logEntry, String nextLogEntry) {
+    public UnloadingClassPreprocessAction(CharSequence logEntry, CharSequence nextLogEntry) {
         Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
             // Do not add a newline if the next line requires preprocessing or the next log line is
@@ -86,11 +86,11 @@ public class UnloadingClassPreprocessAction implements PreprocessAction {
         }
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 
-    public String getName() {
+    public CharSequence getName() {
         return JdkUtil.PreprocessActionType.UNLOADING_CLASS.toString();
     }
 
@@ -101,7 +101,7 @@ public class UnloadingClassPreprocessAction implements PreprocessAction {
      *            The log line to test.
      * @return true if the log line matches the event pattern, false otherwise.
      */
-    public static final boolean match(String logLine) {
+    public static final boolean match(CharSequence logLine) {
         return PATTERN.matcher(logLine).matches();
     }
 

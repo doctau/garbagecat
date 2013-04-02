@@ -94,9 +94,9 @@ public class GcManager {
         BufferedWriter bufferedWriter = null;
 
         try {
-            String currentLogLine = "";
-            String priorLogLine = "";
-            String preprocessedLogLine = "";
+            CharSequence currentLogLine = "";
+            CharSequence priorLogLine = "";
+            CharSequence preprocessedLogLine = "";
 
             bufferedReader = new BufferedReader(new FileReader(logFile));
             bufferedWriter = new BufferedWriter(new FileWriter(preprocessFile));
@@ -106,7 +106,7 @@ public class GcManager {
                 lLineCounter++;
                 preprocessedLogLine = getPreprocessedLogEntry(currentLogLine, priorLogLine, nextLogLine, jvmStartDate);
                 if (preprocessedLogLine != null) {
-                    bufferedWriter.write(preprocessedLogLine);
+                    bufferedWriter.write(preprocessedLogLine.toString());
                 }
 
                 priorLogLine = currentLogLine;
@@ -117,7 +117,7 @@ public class GcManager {
             // Process last line
             preprocessedLogLine = getPreprocessedLogEntry(currentLogLine, priorLogLine, nextLogLine, jvmStartDate);
             if (preprocessedLogLine != null) {
-                bufferedWriter.write(preprocessedLogLine);
+                bufferedWriter.write(preprocessedLogLine.toString());
             }
 
         } catch (FileNotFoundException e) {
@@ -168,9 +168,9 @@ public class GcManager {
      *            The date and time the JVM was started.
      * @return
      */
-    public static String getPreprocessedLogEntry(String currentLogLine, String priorLogLine, String nextLogLine,
-            Date jvmStartDate) {
-        String preprocessedLogLine = null;
+    public static CharSequence getPreprocessedLogEntry(CharSequence currentLogLine, CharSequence priorLogLine,
+            CharSequence nextLogLine, Date jvmStartDate) {
+        CharSequence preprocessedLogLine = null;
         if (!JdkUtil.discardLogLine(currentLogLine)) {
             // First convert any datestamps to timestamps
             if (DateStampPreprocessAction.match(currentLogLine)) {

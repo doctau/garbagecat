@@ -12,6 +12,8 @@
  ******************************************************************************/
 package org.eclipselabs.garbagecat.preprocess.jdk;
 
+import java.util.regex.Pattern;
+
 import org.eclipselabs.garbagecat.util.jdk.JdkRegEx;
 import org.eclipselabs.garbagecat.util.jdk.JdkUtil;
 
@@ -87,17 +89,20 @@ public class G1PrintGcDetailsPreprocessAction implements PreprocessAction {
      */
     private static final String REGEX_RETAIN_BEGINNING = "^" + JdkRegEx.TIMESTAMP + ": \\[GC pause \\(young\\), "
             + JdkRegEx.DURATION + "\\]$";
+    private static final Pattern PATTERN_RETAIN_BEGINNING = Pattern.compile(REGEX_RETAIN_BEGINNING);
 
     /**
      * Regular expression for retained middle.
      */
     private static final String REGEX_RETAIN_MIDDLE = "^   \\[ " + JdkRegEx.SIZE_JDK7 + "->" + JdkRegEx.SIZE_JDK7
             + "\\(" + JdkRegEx.SIZE_JDK7 + "\\)]$";
+    private static final Pattern PATTERN_RETAIN_MIDDLE = Pattern.compile(REGEX_RETAIN_MIDDLE);
 
     /**
      * Regular expression for retained end.
      */
     private static final String REGEX_RETAIN_END = "^" + JdkRegEx.TIMES_BLOCK + "$";
+    private static final Pattern PATTERN_RETAIN_END = Pattern.compile(REGEX_RETAIN_END);
 
     /**
      * Regular expressions for lines thrown away.
@@ -148,10 +153,17 @@ public class G1PrintGcDetailsPreprocessAction implements PreprocessAction {
             //
             "^No shared spaces configured\\.$" };
 
+    private static final Pattern[] PATTERN_THROWAWAY = new Pattern[REGEX_THROWAWAY.length];
+    static {
+        for (int i = 0; i < REGEX_THROWAWAY.length; i++) {
+            PATTERN_THROWAWAY[i] = Pattern.compile(REGEX_THROWAWAY[i]);
+        }
+    }
+
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
     /**
      * Create event from log entry.
@@ -161,21 +173,21 @@ public class G1PrintGcDetailsPreprocessAction implements PreprocessAction {
      * @param nextLogEntry
      *            The next log line.
      */
-    public G1PrintGcDetailsPreprocessAction(String logEntry, String nextLogEntry) {
-        if (logEntry.matches(REGEX_RETAIN_BEGINNING) || logEntry.matches(REGEX_RETAIN_MIDDLE)
-                || logEntry.matches(REGEX_RETAIN_END)) {
+    public G1PrintGcDetailsPreprocessAction(CharSequence logEntry, CharSequence nextLogEntry) {
+        if (PATTERN_RETAIN_BEGINNING.matcher(logEntry).matches()
+                || PATTERN_RETAIN_MIDDLE.matcher(logEntry).matches()) {
             this.logEntry = logEntry;
         }
-        if (logEntry.matches(REGEX_RETAIN_END)) {
-            this.logEntry = this.logEntry + System.getProperty("line.separator");
+        if (PATTERN_RETAIN_END.matcher(logEntry).matches()) {
+            this.logEntry = logEntry + System.getProperty("line.separator");
         }
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 
-    public String getName() {
+    public CharSequence getName() {
         return JdkUtil.PreprocessActionType.G1_PRINT_GC_DETAILS.toString();
     }
 
@@ -186,14 +198,15 @@ public class G1PrintGcDetailsPreprocessAction implements PreprocessAction {
      *            The log line to test.
      * @return true if the log line matches the event pattern, false otherwise.
      */
-    public static final boolean match(String logLine) {
+    public static final boolean match(CharSequence logLine) {
         boolean match = false;
-        if (logLine.matches(REGEX_RETAIN_BEGINNING) || logLine.matches(REGEX_RETAIN_MIDDLE)
-                || logLine.matches(REGEX_RETAIN_END)) {
+        if (PATTERN_RETAIN_BEGINNING.matcher(logLine).matches()
+                || PATTERN_RETAIN_MIDDLE.matcher(logLine).matches()
+                || PATTERN_RETAIN_END.matcher(logLine).matches()) {
             match = true;
         } else {
             for (int i = 0; i < REGEX_THROWAWAY.length; i++) {
-                if (logLine.matches(REGEX_THROWAWAY[i])) {
+                if (PATTERN_THROWAWAY[i].matcher(logLine).matches()) {
                     match = true;
                     break;
                 }

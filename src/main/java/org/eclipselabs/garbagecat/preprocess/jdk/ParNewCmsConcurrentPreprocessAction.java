@@ -66,12 +66,12 @@ public class ParNewCmsConcurrentPreprocessAction implements PreprocessAction {
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
     /**
      * Create event from log entry.
      */
-    public ParNewCmsConcurrentPreprocessAction(String logEntry) {
+    public ParNewCmsConcurrentPreprocessAction(CharSequence logEntry) {
         Matcher matcher = PATTERN1.matcher(logEntry);
         if (matcher.find()) {
             this.logEntry = logEntry;
@@ -84,11 +84,11 @@ public class ParNewCmsConcurrentPreprocessAction implements PreprocessAction {
         }
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 
-    public String getName() {
+    public CharSequence getName() {
         return JdkUtil.PreprocessActionType.PAR_NEW_CMS_CONCURRENT.toString();
     }
 
@@ -103,7 +103,7 @@ public class ParNewCmsConcurrentPreprocessAction implements PreprocessAction {
      *            The next log entry processed.
      * @return true if the log line matches the event pattern, false otherwise.
      */
-    public static final boolean match(String logLine, String priorLogLine, String nextLogLine) {
+    public static final boolean match(CharSequence logLine, CharSequence priorLogLine, CharSequence nextLogLine) {
         boolean isFirstLine = PATTERN1.matcher(logLine).matches() && PATTERN2.matcher(nextLogLine).matches();
         boolean isSecondLine = PATTERN2.matcher(logLine).matches() && PATTERN1.matcher(priorLogLine).matches();
         return isFirstLine || isSecondLine;

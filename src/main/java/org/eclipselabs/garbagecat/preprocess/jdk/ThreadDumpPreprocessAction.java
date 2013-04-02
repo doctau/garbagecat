@@ -138,20 +138,20 @@ public class ThreadDumpPreprocessAction implements PreprocessAction {
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
     /**
      * Create thread dump event from log entry.
      */
-    public ThreadDumpPreprocessAction(String logEntry) {
+    public ThreadDumpPreprocessAction(CharSequence logEntry) {
         this.logEntry = logEntry;
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 
-    public String getName() {
+    public CharSequence getName() {
         return JdkUtil.PreprocessActionType.THREAD_DUMP.toString();
     }
 
@@ -162,7 +162,7 @@ public class ThreadDumpPreprocessAction implements PreprocessAction {
      *            The log line to test.
      * @return true if the log line matches the event pattern, false otherwise.
      */
-    public static final boolean match(String logLine) {
+    public static final boolean match(CharSequence logLine) {
         for (int i = 0; i < PATTERN.length; i++) {
             if (PATTERN[i].matcher(logLine).matches()) {
                 return true;

@@ -23,10 +23,10 @@ public interface PreprocessAction {
     /**
      * @return The log entry for the action.
      */
-    String getLogEntry();
+    CharSequence getLogEntry();
 
     /**
      * @return The action identifier.
      */
-    String getName();
+    CharSequence getName();
 }

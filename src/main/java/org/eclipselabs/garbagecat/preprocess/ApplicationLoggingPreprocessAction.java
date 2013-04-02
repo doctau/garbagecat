@@ -95,20 +95,20 @@ public class ApplicationLoggingPreprocessAction implements PreprocessAction {
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
     /**
      * Create thread dump event from log entry.
      */
-    public ApplicationLoggingPreprocessAction(String logEntry) {
+    public ApplicationLoggingPreprocessAction(CharSequence logEntry) {
         this.logEntry = logEntry;
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 
-    public String getName() {
+    public CharSequence getName() {
         return JdkUtil.PreprocessActionType.APPLICATION_LOGGING.toString();
     }
 
@@ -119,7 +119,7 @@ public class ApplicationLoggingPreprocessAction implements PreprocessAction {
      *            The log line to test.
      * @return true if the log line matches the event pattern, false otherwise.
      */
-    public static final boolean match(String logLine) {
+    public static final boolean match(CharSequence logLine) {
         boolean isMatch = false;
         for (int i = 0; i < REGEX.length; i++) {
             if (PATTERN[i].matcher(logLine).matches()) {

@@ -164,7 +164,7 @@ public class CmsConcurrentModeFailurePreprocessAction implements PreprocessActio
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
     /**
      * Create event from log entry.
@@ -172,7 +172,7 @@ public class CmsConcurrentModeFailurePreprocessAction implements PreprocessActio
      * @param logEntry
      *            The log entry being processed.
      */
-    public CmsConcurrentModeFailurePreprocessAction(String logEntry) {
+    public CmsConcurrentModeFailurePreprocessAction(CharSequence logEntry) {
         if (isLastLineMatch(logEntry)) {
             this.logEntry = logEntry + System.getProperty("line.separator");
         } else {
@@ -186,11 +186,11 @@ public class CmsConcurrentModeFailurePreprocessAction implements PreprocessActio
         }
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 
-    public String getName() {
+    public CharSequence getName() {
         return JdkUtil.PreprocessActionType.CMS_CONCURRENT_MODE_FAILURE.toString();
     }
 
@@ -205,7 +205,7 @@ public class CmsConcurrentModeFailurePreprocessAction implements PreprocessActio
      *            The next log entry processed.
      * @return true if the log line matches the event pattern, false otherwise.
      */
-    public static final boolean match(String logLine, String priorLogLine, String nextLogLine) {
+    public static final boolean match(CharSequence logLine, CharSequence priorLogLine, CharSequence nextLogLine) {
         boolean isFirstOrMiddleLine = isInitialLineMatch(logLine)
                 && (isInitialLineMatch(nextLogLine) || isLastLineMatch(nextLogLine));
         boolean isLastLine = isLastLineMatch(logLine) && isInitialLineMatch(priorLogLine);
@@ -219,7 +219,7 @@ public class CmsConcurrentModeFailurePreprocessAction implements PreprocessActio
      *            The log line to test.
      * @return true if the log line matches a line1 pattern, false otherwise.
      */
-    private static final boolean isInitialLineMatch(String logLine) {
+    private static final boolean isInitialLineMatch(CharSequence logLine) {
         for (int i = 0; i < PATTERN_BEGINNING.length; i++) {
             if (PATTERN_BEGINNING[i].matcher(logLine).matches()) {
                 return true;
@@ -235,7 +235,7 @@ public class CmsConcurrentModeFailurePreprocessAction implements PreprocessActio
      *            The log line to test.
      * @return true if the log line matches a line2 pattern, false otherwise.
      */
-    private static final boolean isLastLineMatch(String logLine) {
+    private static final boolean isLastLineMatch(CharSequence logLine) {
         for (int i = 0; i < PATTERN_END.length; i++) {
             if (PATTERN_END[i].matcher(logLine).matches()) {
                 return true;

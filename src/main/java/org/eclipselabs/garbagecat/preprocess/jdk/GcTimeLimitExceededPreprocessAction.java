@@ -94,12 +94,12 @@ public class GcTimeLimitExceededPreprocessAction implements PreprocessAction {
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
     /**
      * Create event from log entry.
      */
-    public GcTimeLimitExceededPreprocessAction(String logEntry) {
+    public GcTimeLimitExceededPreprocessAction(CharSequence logEntry) {
         Matcher matcher = PATTERN1.matcher(logEntry);
         if (matcher.find()) {
             this.logEntry = logEntry;
@@ -112,11 +112,11 @@ public class GcTimeLimitExceededPreprocessAction implements PreprocessAction {
         }
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 
-    public String getName() {
+    public CharSequence getName() {
         return JdkUtil.PreprocessActionType.GC_TIME_LIMIT_EXCEEDED.toString();
     }
 
@@ -129,7 +129,7 @@ public class GcTimeLimitExceededPreprocessAction implements PreprocessAction {
      *            The last log entry processed.
      * @return true if the log line matches the event pattern, false otherwise.
      */
-    public static final boolean match(String logLine, String priorLogLine) {
+    public static final boolean match(CharSequence logLine, CharSequence priorLogLine) {
         return (PATTERN1.matcher(logLine).matches() || (PATTERN2.matcher(logLine).matches() && PATTERN1.matcher(
                 priorLogLine).matches()));
     }

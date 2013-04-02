@@ -249,7 +249,7 @@ public class PrintHeapAtGcPreprocessAction implements PreprocessAction {
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
     /**
      * Create event from log entry.
@@ -257,7 +257,7 @@ public class PrintHeapAtGcPreprocessAction implements PreprocessAction {
      * @param logEntry
      *            The log entry being processed.
      */
-    public PrintHeapAtGcPreprocessAction(String logEntry) {
+    public PrintHeapAtGcPreprocessAction(CharSequence logEntry) {
         // Handle split logging. Keep parts of log lines needed for re-composing.
         Matcher matcher;
         // Check to see if beginning of line should be retained.
@@ -280,11 +280,11 @@ public class PrintHeapAtGcPreprocessAction implements PreprocessAction {
         }
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 
-    public String getName() {
+    public CharSequence getName() {
         return JdkUtil.PreprocessActionType.PRINT_HEAP_AT_GC.toString();
     }
 
@@ -295,7 +295,7 @@ public class PrintHeapAtGcPreprocessAction implements PreprocessAction {
      *            The log line to test.
      * @return true if the log line matches the event pattern, false otherwise.
      */
-    public static final boolean match(String logLine) {
+    public static final boolean match(CharSequence logLine) {
         for (int i = 0; i < PATTERN_THROWAWAY.length; i++) {
             if (PATTERN_THROWAWAY[i].matcher(logLine).matches()) {
                 return true;

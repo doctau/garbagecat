@@ -62,7 +62,7 @@ public class DateStampPreprocessAction implements PreprocessAction {
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
     /**
      * Create event from log entry.
@@ -72,7 +72,7 @@ public class DateStampPreprocessAction implements PreprocessAction {
      * @param jvmStartDate
      *            The date and time the JVM was started.
      */
-    public DateStampPreprocessAction(String logEntry, Date jvmStartDate) {
+    public DateStampPreprocessAction(CharSequence logEntry, Date jvmStartDate) {
         Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
             String logEntryMinusDateStamp = matcher.group(11);
@@ -82,11 +82,11 @@ public class DateStampPreprocessAction implements PreprocessAction {
         }
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 
-    public String getName() {
+    public CharSequence getName() {
         return JdkUtil.PreprocessActionType.DATE_STAMP.toString();
     }
 
@@ -97,7 +97,7 @@ public class DateStampPreprocessAction implements PreprocessAction {
      *            The log line to test.
      * @return true if the log line matches the event pattern, false otherwise.
      */
-    public static final boolean match(String logLine) {
+    public static final boolean match(CharSequence logLine) {
         return PATTERN.matcher(logLine).matches();
     }
 }

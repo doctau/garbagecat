@@ -530,7 +530,7 @@ public class JdkUtil {
      * @return True if the log line is not related to garbage collection logging or can otherwise be discarded, false if
      *         the log line should be retained.
      */
-    public static final boolean discardLogLine(String logLine) {
+    public static final boolean discardLogLine(CharSequence logLine) {
         return ThreadDumpPreprocessAction.match(logLine) || ApplicationLoggingPreprocessAction.match(logLine)
                 || logLine.length() == 0 || JdkRegEx.BLANK_LINE.matcher(logLine).matches();
     }

@@ -59,7 +59,7 @@ public class DateStampPrefixPreprocessAction implements PreprocessAction {
     /**
      * The log entry for the event. Can be used for debugging purposes.
      */
-    private String logEntry;
+    private CharSequence logEntry;
 
     /**
      * Create event from log entry.
@@ -67,7 +67,7 @@ public class DateStampPrefixPreprocessAction implements PreprocessAction {
      * @param logEntry
      *            The log entry.
      */
-    public DateStampPrefixPreprocessAction(String logEntry) {
+    public DateStampPrefixPreprocessAction(CharSequence logEntry) {
         Matcher matcher = PATTERN.matcher(logEntry);
         if (matcher.find()) {
             String logEntryMinusDateStamp = matcher.group(11);
@@ -75,11 +75,11 @@ public class DateStampPrefixPreprocessAction implements PreprocessAction {
         }
     }
 
-    public String getLogEntry() {
+    public CharSequence getLogEntry() {
         return logEntry;
     }
 
-    public String getName() {
+    public CharSequence getName() {
         return JdkUtil.PreprocessActionType.DATE_STAMP_PREFIX.toString();
     }
 
@@ -90,7 +90,7 @@ public class DateStampPrefixPreprocessAction implements PreprocessAction {
      *            The log line to test.
      * @return true if the log line matches the event pattern, false otherwise.
      */
-    public static final boolean match(String logLine) {
+    public static final boolean match(CharSequence logLine) {
         return PATTERN.matcher(logLine).matches();
     }
 }
