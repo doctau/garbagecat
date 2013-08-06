@@ -53,6 +53,7 @@ public class Main {
     public static final int REJECT_LIMIT = 1000;
 
     private static Options options;
+    private static String reportFilename;
 
     static {
         // Declare command line options
@@ -63,6 +64,7 @@ public class Main {
         options.addOption("s", "startdatetime", true,
                 "JVM start datetime (yyyy-MM-dd HH:mm:ss,SSS) for converting GC logging timestamps to datetime");
         options.addOption("t", "threshold", true, "threshold (0-100) for throughput bottleneck reporting");
+        options.addOption("r", "report", true, "report filename. Uses report.txt if not specified");
     }
 
     /**
@@ -87,6 +89,11 @@ public class Main {
                 String jvmOptions = null;
                 if (cmd.hasOption("options")) {
                     jvmOptions = cmd.getOptionValue('o');
+                }
+
+                // Set report filename
+                if (cmd.hasOption("report")) {
+                    reportFilename = cmd.getOptionValue('r');
                 }
 
                 String logFileName = (String) cmd.getArgList().get(cmd.getArgList().size() - 1);
@@ -197,6 +204,13 @@ public class Main {
                 throw new IllegalArgumentException("JVM options not specified.");
             }
         }
+
+        // Report filename
+        if (cmd.hasOption("options")) {
+            if (cmd.getOptionValue('r') == null) {
+                throw new IllegalArgumentException("Report filename not specified.");
+            }
+        }
     }
 
     /**
@@ -206,7 +220,15 @@ public class Main {
      *            JVM run data.
      */
     public static void createReport(JvmRun jvmRun) {
-        File reportFile = new File("report.txt");
+        File reportFile = null;
+
+        if (reportFilename == "" || reportFilename == null) {
+            reportFile = new File("report.txt");
+        }
+        else {
+            reportFile = new File(reportFilename);
+        }
+
         FileWriter fileWriter = null;
         BufferedWriter bufferedWriter = null;
         try {
