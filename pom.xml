@@ -66,7 +66,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.6</version>
+				<version>3.1.0</version>
 				<configuration>
 					<configLocation>src/main/config/checkstyle/checkstyle.xml</configLocation>
 					<includeTestSourceDirectory>true</includeTestSourceDirectory>
@@ -124,7 +124,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.6</version>
+				<version>3.1.0</version>
 				<configuration>
 					<configLocation>src/main/config/checkstyle/checkstyle.xml</configLocation>
 				</configuration>
