@@ -1,0 +1,18 @@
+version: 2
+updates:
+- package-ecosystem: maven
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "19:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: org.json:json
+    versions:
+    - "20201115"
+  - dependency-name: org.apache.maven.plugins:maven-checkstyle-plugin
+    versions:
+    - 3.1.1
+  - dependency-name: org.apache.maven.plugins:maven-jxr-plugin
+    versions:
+    - 3.0.0
