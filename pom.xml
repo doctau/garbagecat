@@ -58,7 +58,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.6.1</version>
+				<version>3.3.0</version>
 				<configuration>
 					<doctitle>${project.name} ${project.version}</doctitle>
 					<stylesheetfile>src/main/javadoc/stylesheet.css</stylesheetfile>
